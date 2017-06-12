@@ -39,20 +39,8 @@ module.exports = function(env) {
       hints: isProduction ? 'warning' : false,
     },
     entry: {
-      main: path.resolve('src', 'client.js'),
-      common: [
-        'react',
-        'react-dom',
-        'aphrodite',
-        'cerebral',
-        'function-tree',
-        'classnames',
-        '@cerebral/firebase',
-        'marksy',
-        'react-textarea-autosize',
-        'react-tagcloud',
-        'prop-types',
-      ],
+      main: path.resolve('src', 'client', 'index.js'),
+      common: ['preact', 'firebase'],
     },
     output: {
       path: path.resolve('public'),
@@ -76,9 +64,10 @@ module.exports = function(env) {
         'process.env': {
           NODE_ENV: JSON.stringify(nodeEnv),
         },
+        DEBUG: JSON.stringify(Boolean(nodeEnv !== 'production')),
       }),
       new ServiceWorkerWebpackPlugin({
-        entry: path.resolve('src', 'sw.js'),
+        entry: path.resolve('src', 'client', 'serviceworker', 'index.js'),
       }),
     ].concat(
       isProduction
@@ -106,12 +95,5 @@ module.exports = function(env) {
             }),
           ]
     ),
-    resolve: {
-      alias: Object.keys(babelRc.plugins[0][1].alias).reduce((alias, key) => {
-        alias[key] = path.resolve(babelRc.plugins[0][1].alias[key]);
-
-        return alias;
-      }, {}),
-    },
   };
 };

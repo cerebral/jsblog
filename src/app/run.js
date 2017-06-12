@@ -1,7 +1,8 @@
 import { FunctionTree } from 'function-tree';
 import { Provider as FirebaseProvider } from '@cerebral/firebase-admin';
 import RenderProvider from './providers/Render';
-import serviceAccount from '../../serviceAccount.json';
+import CacheProvider from './providers/Cache';
+import serviceAccount from 'serviceAccount';
 import Devtools from 'function-tree/devtools';
 
 const ft = new FunctionTree([
@@ -10,6 +11,7 @@ const ft = new FunctionTree([
     serviceAccount,
     databaseURL: 'https://gblog-f47ee.firebaseio.com',
   }),
+  CacheProvider,
 ]);
 
 if (process.env.NODE_ENV !== 'production') {
@@ -28,6 +30,8 @@ function run(tree) {
         res,
       })
       .catch(error => {
+        console.error(error.message);
+        console.error(error.stack);
         res.status(500).send(error.message);
       });
   };

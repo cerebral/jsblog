@@ -4,10 +4,10 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "start": "concurrently --prefix \"[{name}]\" --names \"CLIENT,FUNCTION\" -c \"white.bold,gray.bold\" \"webpack-dev-server\" \"babel-watch src/dev.js --watch src\"",
-    "deploy": "npm run build:client && npm run build:function && firebase deploy && node deploy/cleanPublic.js",
+    "start": "concurrently --prefix \"[{name}]\" --names \"CLIENT,FUNCTION\" -c \"white.bold,gray.bold\" \"webpack-dev-server\" \"babel-watch src/index.js --watch src\"",
+    "deploy": "npm run build:client && npm run build:functions && firebase deploy && node deploy/cleanPublic.js",
     "build:client": "node deploy/cleanPublic.js && NODE_ENV=production webpack",
-    "build:function": "node deploy/writeAppConfig.js && NODE_ENV=production webpack --config webpack.functions.config.js",
+    "build:functions": "node deploy/writeAppConfig.js && NODE_ENV=production babel src --out-dir functions",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,23 +23,20 @@
   "dependencies": {
     "@cerebral/firebase": "0.0.0-beta.3",
     "@cerebral/firebase-admin": "0.0.0-beta.3",
-    "aphrodite": "^1.2.1",
     "babel-plugin-dynamic-import-webpack": "^1.0.1",
     "cerebral": "^2.0.0-beta.3",
+    "classnames": "^2.2.5",
+    "codemirror": "^5.26.0",
     "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
     "firebase-admin": "~4.2.1",
     "firebase-functions": "^0.5.7",
     "firebase-server": "^0.10.1",
-    "fontfaceobserver": "^2.0.13",
     "function-tree": "^1.0.0-beta.3",
     "highlight.js": "^9.12.0",
-    "marksy": "^2.0.0",
-    "prop-types": "^15.5.10",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-tagcloud": "^1.2.0",
-    "react-textarea-autosize": "^5.0.6",
+    "marksy": "^3.0.0",
+    "preact": "^8.1.0",
+    "preact-render-to-string": "^3.6.3",
     "url-mapper": "^1.1.1"
   },
   "devDependencies": {

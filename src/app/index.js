@@ -10,13 +10,17 @@ const app = express();
 
 app.use(cookieParser());
 
+app.use(function(req, res, next) {
+  next();
+});
+
 app.get('/', run(renderRoot));
 
-app.get('/write', run(renderWriteArticle));
+app.get('/drafts/:displayName/:draftKey', run(renderWriteArticle));
 app.get('/tags/:tag', run(renderTagArticles));
 
-app.get('/articles/:username', (req, res) => {});
+app.get('/articles/:displayName', (req, res) => {});
 
-app.get('/articles/:username/:article', run(renderArticle));
+app.get('/articles/:displayName/:articleName', run(renderArticle));
 
 export default app;

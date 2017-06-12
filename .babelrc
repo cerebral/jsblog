@@ -1,11 +1,26 @@
 {
   "presets": ["es2015", "react"],
-  "plugins": [
-    ["module-resolver", {
-      "alias": {
-
-      }
-    }],
-    "dynamic-import-webpack"
-  ]
+  "env": {
+    "development": {
+      "plugins": [
+        ["module-resolver", {
+          "alias": {
+            "firebase-functions": "./firebase-functions-mock/index.js",
+            "config": "./app.config.json",
+            "serviceAccount": "./serviceAccount"
+          }
+        }]
+      ]
+    },
+    "production": {
+      "plugins": [
+        ["module-resolver", {
+          "alias": {
+            "config": "./src/app.config.json",
+            "serviceAccount": "./src/serviceAccount.json"
+          }
+        }]
+      ]
+    }
+  }
 }

@@ -1,8 +1,18 @@
 function getSession({ props, firebase }) {
-  const req = props.req;
-  const session = req.cookies.jsblog ? JSON.parse(req.cookies.jsblog) : null;
+  const token = props.req.cookies.__session || null;
 
-  return { session };
+  if (token) {
+    return firebase
+      .verifyIdToken(token)
+      .then(decodedToken => {
+        return { user: decodedToken || null };
+      })
+      .catch(() => {
+        return { user: null };
+      });
+  } else {
+    return { user: null };
+  }
 }
 
 export default getSession;

@@ -1,15 +1,6 @@
 {
-  "development": {
-    "scripts": [
-      "common.js",
-      "main.js"
-    ]
-  },
-  "production": {
-    "scripts": [
-      "manifest.5e294ac5475f68d1a6bc.js",
-      "common.36ff7abbe1f07effba25.js",
-      "main.cccbb0a94f3a09b3255b.js"
-    ]
-  }
+  "scripts": [
+    "common.js",
+    "main.js"
+  ]
 }

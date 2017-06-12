@@ -1,6 +1,20 @@
 {
   "rules": {
-    ".read": "auth != null",
-    ".write": "auth != null"
+    "drafts": {
+      "$uid": {
+        ".read": "true",
+        ".write": "auth.uid == $uid"
+      }
+    },
+    "displayNames": {
+      "$displayName": {
+        ".write": "auth.uid == newData.val()"
+      }
+    },
+    "articles": {
+      "$uid": {
+        ".write": "auth.uid == $uid"
+      }
+    }
   }
 }
