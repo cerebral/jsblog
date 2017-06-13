@@ -1,11 +1,11 @@
 /** @jsx h */
 import { h, Component } from 'preact';
-import { compileArticle } from '../../utils';
+import { compileArticle } from '../../../utils';
 
 function Article({ article }) {
   return (
-    <article className="Article-content">
-      {compileArticle(article).tree}
+    <article id={article.key} className="Article-content">
+      {compileArticle(article.content).tree}
     </article>
   );
 }

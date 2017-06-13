@@ -4,6 +4,7 @@ import { h, render } from 'preact';
 import FirebaseProvider from '@cerebral/firebase';
 import UrlMapper from 'url-mapper';
 import firebase from 'firebase';
+import stats from './services/stats';
 
 let hasVerifiedUser = false;
 let user = null;
@@ -62,12 +63,13 @@ function route(path, props = {}) {
         );
       });
     },
-    '/articles/:displayName/:article': function(params) {
+    '/articles/:displayName/:articleName': function(params) {
       require.ensure([], () => {
         renderApp(
           require('./components/App').default,
           Object.assign(props, { user, params })
         );
+        stats.trackArticleRead(params);
       });
     },
   });

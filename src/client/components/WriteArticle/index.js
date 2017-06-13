@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h, Component } from 'preact';
-import { compileArticle } from '../../utils';
+import { compileArticle } from '../../../utils';
 import CodeMirror from './CodeMirror';
 import draft from '../../services/draft';
 

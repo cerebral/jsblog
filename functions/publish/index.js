@@ -19,7 +19,7 @@ var publishApp = _firebaseAdmin2.default.initializeApp({
   databaseURL: 'https://gblog-f47ee.firebaseio.com'
 }, 'publish');
 
-function publish(event) {
+function publishArticle(event) {
   var dataValue = event.data.val();
   var previousValue = event.data.previous.val();
 
@@ -38,6 +38,37 @@ function publish(event) {
     });
 
     return publishApp.database().ref('tagArticles/' + dataValue.tag + '/' + dataValue.key).update(update);
+  });
+}
+
+function updateTag(event) {
+  var dataValue = event.data.val();
+  var previousValue = event.data.previous.val();
+
+  console.log('Publishing TAG');
+  return publishApp.database().ref('tags/' + dataValue.tag).transaction(function (maybeTag) {
+    if (!maybeTag) {
+      return {
+        articleCount: 1,
+        lastDatetime: Date.now(),
+        readCount: 0,
+        recommendedCount: 0
+      };
+    }
+
+    return Object.assign({}, maybeTag, {
+      articleCount: previousValue ? maybeTag.articleCount : maybeTag.articleCount + 1,
+      lastDatetime: previousValue ? maybeTag.lastDatetime : Date.now()
+    });
+  });
+}
+
+function publish(event) {
+  console.log('Publishing');
+  return updateTag(event).then(function () {
+    return publishArticle(event);
+  }).catch(function (error) {
+    console.log('Publishing error', error);
   });
 }
 

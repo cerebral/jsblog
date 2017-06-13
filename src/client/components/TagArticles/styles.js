@@ -35,8 +35,4 @@ export default `
     font-size: 18px;
     text-align: right;
   }
-  .TagArticles-recommendedCount {
-    font-size: 18px;
-    text-align: right;
-  }
 `;

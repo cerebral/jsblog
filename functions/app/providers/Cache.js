@@ -11,6 +11,9 @@ function Cache(context) {
     },
     get: function get(key) {
       return cache[key] || null;
+    },
+    clear: function clear(key) {
+      delete cache[key];
     }
   };
 

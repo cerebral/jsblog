@@ -8,7 +8,7 @@ function hasTagsChanged(_ref) {
       state = _ref.state,
       path = _ref.path;
 
-  return props.cache.content === Object.keys(props.tags).join(',') ? path.false() : path.true();
+  return props.cache.content === Object.keys(props.tags || []).join(',') ? path.false() : path.true();
 }
 
 exports.default = hasTagsChanged;

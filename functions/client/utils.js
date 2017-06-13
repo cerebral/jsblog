@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.compile = undefined;
 exports.compileArticle = compileArticle;
 
 var _preact = require('preact');
@@ -34,7 +35,7 @@ _highlight2.default.registerLanguage('javascript', _javascript2.default);
 _highlight2.default.registerLanguage('xml', _xml2.default);
 _highlight2.default.registerLanguage('css', _css2.default);
 
-var compile = (0, _marksy2.default)({
+var compile = exports.compile = (0, _marksy2.default)({
   createElement: _preact.h,
   highlight: _highlight2.default
 });

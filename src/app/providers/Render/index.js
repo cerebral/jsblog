@@ -2,8 +2,11 @@ import config from 'config';
 import renderToString from 'preact-render-to-string';
 import DroidSansMono from './DroidSansMono.font';
 import hund from '../../../themes/hund';
+import mostlyBright from '../../../themes/mostly-bright';
+import { parseDisplayName } from '../../../utils';
 
-const themes = { hund };
+const themes = { hund, 'mostly-bright': mostlyBright };
+
 const render = {
   index(options) {
     return `<!DOCTYPE html>
@@ -26,7 +29,9 @@ const render = {
             }
           </style>
           <style>${(options.styles || []).join('\n')}</style>
-          <style>${themes[options.theme]}</style>
+          <style>${themes[
+            options.user ? parseDisplayName(options.user).theme : 'hund'
+          ]}</style>
           ${options.useDroidSansMono ? `<style>${DroidSansMono}</style>` : ''}
         </head>
         <body>

@@ -14,20 +14,20 @@ export default [
   {
     true: [
       renderApp(),
-      renderTags,
+      renderTags(),
       renderIndex,
       sendIndex,
       getTags,
       hasTagsChanged,
       {
-        true: [renderTags, replaceCachedTags],
+        true: [renderTags(true), replaceCachedTags],
         false: [],
       },
     ],
     false: [
       getTags,
       renderApp(),
-      renderTags,
+      renderTags(),
       renderIndex,
       sendIndex,
       replaceCachedTags,

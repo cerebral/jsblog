@@ -66,6 +66,6 @@ exports.default = {
     document.cookie = '__session=INVALID; max-age=0; path=/';
   },
   clearCache: function clearCache() {
-    navigator.serviceWorker && navigator.serviceWorker.controller && navigator.serviceWorker.controller.postMessage('reset');
+    navigator.serviceWorker && navigator.serviceWorker.controller && navigator.serviceWorker.controller.postMessage(JSON.stringify({ type: 'reset' }));
   }
 };

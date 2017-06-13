@@ -18,3 +18,15 @@ export const compile = marksy({
 export function compileArticle(content) {
   return compile(content);
 }
+
+export function updateDisplayNameWithTheme(displayName, theme) {
+  const parsed = displayName.split(',');
+
+  return `${parsed[0]},${theme}`;
+}
+
+export function parseDisplayName(user) {
+  const parsed = (user.displayName || user.name).split(',');
+
+  return { login: parsed[0], theme: parsed[1] };
+}

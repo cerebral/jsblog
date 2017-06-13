@@ -8,7 +8,7 @@ function replaceCachedArticle(_ref) {
       cache = _ref.cache;
 
   cache.set(props.req.path, {
-    content: Object.keys(props.tags).join(','),
+    content: Object.keys(props.tags || []).join(','),
     html: props.tagsContent.html,
     script: props.tagsContent.script,
     style: props.tagsContent.style

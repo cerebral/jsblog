@@ -1,5 +1,7 @@
 {
   "rules": {
+    ".write": "false",
+    ".read": "false",
     "drafts": {
       "$uid": {
         ".read": "true",
@@ -7,13 +9,36 @@
       }
     },
     "displayNames": {
-      "$displayName": {
-        ".write": "auth.uid == newData.val()"
+      "byLogin": {
+        "$login": {
+          ".write": "auth.uid == newData.val()"
+        }
+      },
+      "byUid": {
+        "$uid": {
+          ".write": "auth.uid == $uid"
+        }
       }
     },
     "articles": {
       "$uid": {
+        ".read": "true",
         ".write": "auth.uid == $uid"
+      }
+    },
+    "tags": {
+      ".read": "true",
+      ".indexOn": "lastDatetime"
+    },
+    "tagArticles": {
+      ".read": "true"
+    },
+    "reads": {
+      "$displayName": {
+        "$articleName": {
+          ".write": "true",
+          ".read": "true"
+        }
       }
     }
   }

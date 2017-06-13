@@ -20,7 +20,6 @@ function backgroundFetch(request, requestUrl, response) {
         Promise.all([copyCheck.text(), responseNetwork.clone().text()])
           .then(texts => {
             if (texts[0] !== texts[1]) {
-              console.log('There was a change here');
               self.clients.matchAll().then(function(clients) {
                 Promise.all(
                   clients.map(function(client) {

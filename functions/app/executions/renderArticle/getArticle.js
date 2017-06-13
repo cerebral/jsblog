@@ -1,12 +1,13 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 function getArticle(_ref) {
-  var firebase = _ref.firebase;
+  var props = _ref.props,
+      firebase = _ref.firebase;
 
-  return firebase.value('articles/456/123').then(function (response) {
+  return firebase.value("articles/" + props.uid + "/" + props.req.params.articleName).then(function (response) {
     return { article: response.value };
   });
 }

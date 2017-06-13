@@ -43,9 +43,9 @@ var _hasTagsChanged2 = _interopRequireDefault(_hasTagsChanged);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = [_getSession2.default, _hasCachedPath2.default, {
-  true: [(0, _renderApp2.default)(), _renderTags2.default, _renderIndex2.default, _sendIndex2.default, _getTags2.default, _hasTagsChanged2.default, {
-    true: [_renderTags2.default, _replaceCachedTags2.default],
+  true: [(0, _renderApp2.default)(), (0, _renderTags2.default)(), _renderIndex2.default, _sendIndex2.default, _getTags2.default, _hasTagsChanged2.default, {
+    true: [(0, _renderTags2.default)(true), _replaceCachedTags2.default],
     false: []
   }],
-  false: [_getTags2.default, (0, _renderApp2.default)(), _renderTags2.default, _renderIndex2.default, _sendIndex2.default, _replaceCachedTags2.default]
+  false: [_getTags2.default, (0, _renderApp2.default)(), (0, _renderTags2.default)(), _renderIndex2.default, _sendIndex2.default, _replaceCachedTags2.default]
 }];

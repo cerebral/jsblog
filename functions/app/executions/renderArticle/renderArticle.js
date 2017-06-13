@@ -21,20 +21,24 @@ var _styles2 = _interopRequireDefault(_styles);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /** @jsx h */
-function renderArticle(_ref) {
-  var props = _ref.props,
-      render = _ref.render;
+function renderArticleFactory(forceRender) {
+  function renderArticle(_ref) {
+    var props = _ref.props,
+        render = _ref.render;
 
-  if (props.cache) {
-    return { articleContent: props.cache };
+    if (props.cache && !forceRender) {
+      return { articleContent: props.cache };
+    }
+
+    return {
+      articleContent: {
+        html: render.component((0, _preact.h)(_Article2.default, { article: props.article.content })),
+        style: _highlightStyles2.default + '\n' + _styles2.default
+      }
+    };
   }
 
-  return {
-    articleContent: {
-      html: render.component((0, _preact.h)(_Article2.default, { article: props.article.content })),
-      style: _highlightStyles2.default + '\n' + _styles2.default
-    }
-  };
+  return renderArticle;
 }
 
-exports.default = renderArticle;
+exports.default = renderArticleFactory;

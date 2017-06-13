@@ -1,8 +1,9 @@
 /** @jsx h */
 import { h, Component } from 'preact';
-import { compile } from '../../../utils';
+import { compile, parseDisplayName } from '../../../../utils';
 import draft from '../../../services/draft';
 import cache from '../../../services/cache';
+import authentication from '../../../services/authentication';
 
 function renderWelcome() {
   return [
@@ -10,6 +11,7 @@ function renderWelcome() {
     '- jsblog new  - *write new article*',
     '- jsblog tag  - *tag article*',
     '- jsblog publish  - *publish article*',
+    '- jsblog edit  - *edit article*',
     '- jsblog theme - *list possible themes*',
     '- jsblog theme *sometheme* - *activate a new theme*',
     '- jsblog help - *this welcome*',
@@ -17,11 +19,13 @@ function renderWelcome() {
 }
 
 function evaluateCommand(text, props, updateTerminal) {
+  const login = parseDisplayName(props.user).login;
+
   if (text === 'jsblog new') {
     updateTerminal(['Creating draft...']);
     return draft.create(props.user.uid).then(draftKey => {
       updateTerminal(['Draft created, redirecting...']);
-      location.href = `/drafts/${props.user.displayName}/${draftKey}`;
+      location.href = `/drafts/${login}/${draftKey}`;
     });
   }
 
@@ -38,6 +42,19 @@ function evaluateCommand(text, props, updateTerminal) {
     ]);
   }
 
+  if (text === 'jsblog edit') {
+    const ownerLogin = location.pathname.split('/')[2];
+    if (ownerLogin !== login) {
+      updateTerminal([`This is not your article!`]);
+    } else {
+      updateTerminal([`Redirecting you to the draft...`]);
+      location.href = `/drafts/${ownerLogin}/${document.querySelector('article')
+        .id}`;
+    }
+
+    return;
+  }
+
   if (text === 'jsblog publish') {
     updateTerminal(['Saving draft...']);
     return draft
@@ -47,10 +64,15 @@ function evaluateCommand(text, props, updateTerminal) {
         return draft.publish();
       })
       .then(path => {
-        updateTerminal(['Published!']);
-        cache.clearUrl(
-          `/articles/${props.user.displayName}/${draft.current.articleName}`
-        );
+        updateTerminal([
+          `Published at [/articles/${login}/${draft.current
+            .articleName}](/articles/${login}/${draft.current.articleName})`,
+        ]);
+        cache.clearUrl([
+          `/`,
+          `/articles/${login}/${draft.current.articleName}`,
+          `/tags/${draft.current.tag}`,
+        ]);
       });
   }
 
@@ -63,16 +85,14 @@ function evaluateCommand(text, props, updateTerminal) {
 
   if (text.indexOf('jsblog tag') === 0) {
     updateTerminal(['Setting tag...']);
-    console.log(text);
     return draft
       .setTag(text.split(' ')[2])
       .then(tagInfo => {
         if (tagInfo) {
           updateTerminal([
             'Tag is set. Current stats:',
-            `- Articles: **${tagInfo.articleCount}**`,
-            `- Read: **${tagInfo.readCount}**`,
-            `- Recommended: **${tagInfo.recommendedCount}**`,
+            `- Articles count: **${tagInfo.articleCount}**`,
+            `- Read count: **${tagInfo.readCount}**`,
           ]);
         } else {
           updateTerminal(['Tag is set. You are the first to use this tag.']);
@@ -84,7 +104,32 @@ function evaluateCommand(text, props, updateTerminal) {
   }
 
   if (text === 'jsblog theme') {
-    return updateTermianal(['### Available themes', '- hund']);
+    return updateTerminal([
+      '### Available themes',
+      '- hund',
+      '- mostly-bright',
+    ]);
+  }
+
+  if (text.indexOf('jsblog theme') === 0) {
+    const themes = ['hund', 'mostly-bright'];
+    const theme = text.split(' ')[2];
+    if (themes.indexOf(theme) === -1) {
+      return updateTerminal(['You have not given a valid theme']);
+    }
+
+    updateTerminal(['Updating theme...']);
+    return authentication
+      .updateTheme(theme)
+      .then(() => {
+        return authentication.getToken(true);
+      })
+      .then(token => {
+        authentication.writeCookie(token);
+        cache.clearAll();
+        updateTerminal(['Theme updated, reloading app']);
+        location.reload();
+      });
   }
 
   if (text === 'jsblog help') {
@@ -107,6 +152,16 @@ class Console extends Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.submit = this.submit.bind(this);
     this.toggleExpand = this.toggleExpand.bind(this);
+    this.toggleExpandByShortcut = this.toggleExpandByShortcut.bind(this);
+    this.identifyMetaKey = this.identifyMetaKey.bind(this);
+  }
+  componentDidMount() {
+    window.addEventListener('keydown', this.identifyMetaKey);
+    window.addEventListener('keyup', this.toggleExpandByShortcut);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.identifyMetaKey);
+    window.removeEventListener('keyup', this.toggleExpandByShortcut);
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevState.isClosed && !this.state.isClosed) {
@@ -136,6 +191,15 @@ class Console extends Component {
       );
     });
   }
+  identifyMetaKey(event) {
+    this.triggerMetaKey =
+      event.metaKey && (event.keyCode === 91 || event.keyCode === 17);
+  }
+  toggleExpandByShortcut() {
+    if (this.triggerMetaKey) {
+      this.toggleExpand();
+    }
+  }
   toggleExpand() {
     const isClosed = this.state.isClosed;
     this.setState({
@@ -153,7 +217,10 @@ class Console extends Component {
         </div>
         {this.state.isClosed
           ? null
-          : <div className="App-console-wrapper">
+          : <div
+              className="App-console-wrapper"
+              onClick={() => this.input.focus()}
+            >
               <div
                 ref={node => (this.textarea = node)}
                 className="App-console-textarea"
@@ -164,13 +231,12 @@ class Console extends Component {
               </div>
               <div className="App-console-cmd-wrapper">
                 <input className="App-console-cmd-sudo" value="$" readOnly />
-                <form onSubmit={this.submit}>
+                <form className="App-console-cmd" onSubmit={this.submit}>
                   <input
                     ref={node => (this.input = node)}
                     autoCorrect="off"
                     autoCapitalize="off"
                     spellCheck="false"
-                    className="App-console-cmd"
                     onChange={this.onInputChange}
                     value={this.state.inputValue}
                     autoComplete="off"

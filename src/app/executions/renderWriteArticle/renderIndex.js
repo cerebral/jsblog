@@ -4,7 +4,7 @@ function renderIndex({ props, render }) {
       appHtml: props.appContent.html,
       pageHtml: props.writeArticleContent.html,
       styles: [props.appContent.style, props.writeArticleContent.style],
-      theme: 'hund',
+      user: props.user,
       useDroidSansMono: true,
     }),
   };

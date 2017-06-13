@@ -9,7 +9,7 @@ const publishApp = firebase.initializeApp(
   'publish'
 );
 
-function publish(event) {
+function publishArticle(event) {
   const dataValue = event.data.val();
   const previousValue = event.data.previous.val();
 
@@ -30,7 +30,6 @@ function publish(event) {
           ? {}
           : {
               readCount: 0,
-              recommendedCount: 0,
               publishDatetime: Date.now(),
             }
       );
@@ -39,6 +38,43 @@ function publish(event) {
         .database()
         .ref(`tagArticles/${dataValue.tag}/${dataValue.key}`)
         .update(update);
+    });
+}
+
+function updateTag(event) {
+  const dataValue = event.data.val();
+  const previousValue = event.data.previous.val();
+
+  console.log('Publishing TAG');
+  return publishApp
+    .database()
+    .ref(`tags/${dataValue.tag}`)
+    .transaction(maybeTag => {
+      if (!maybeTag) {
+        return {
+          articleCount: 1,
+          lastDatetime: Date.now(),
+          readCount: 0,
+        };
+      }
+
+      return Object.assign({}, maybeTag, {
+        articleCount: previousValue
+          ? maybeTag.articleCount
+          : maybeTag.articleCount + 1,
+        lastDatetime: previousValue ? maybeTag.lastDatetime : Date.now(),
+      });
+    });
+}
+
+function publish(event) {
+  console.log('Publishing');
+  return updateTag(event)
+    .then(() => {
+      return publishArticle(event);
+    })
+    .catch(error => {
+      console.log('Publishing error', error);
     });
 }
 

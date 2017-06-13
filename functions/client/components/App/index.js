@@ -16,17 +16,17 @@ var _Login = require('./Login');
 
 var _Login2 = _interopRequireDefault(_Login);
 
-var _New = require('./New');
-
-var _New2 = _interopRequireDefault(_New);
-
 var _authentication = require('../../services/authentication');
 
 var _authentication2 = _interopRequireDefault(_authentication);
 
-var _drafts = require('../../services/drafts');
+var _Update = require('./Update');
 
-var _drafts2 = _interopRequireDefault(_drafts);
+var _Update2 = _interopRequireDefault(_Update);
+
+var _Console = require('./Console');
+
+var _Console2 = _interopRequireDefault(_Console);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -48,10 +48,10 @@ var App = function (_Component) {
     _this.state = {
       user: props.user,
       isChangingAuthentication: false,
-      isPreparingNewDraft: false
+      hasUpdate: props.hasUpdate,
+      forceOpenConsole: false
     };
     _this.toggleLogin = _this.toggleLogin.bind(_this);
-    _this.newDraft = _this.newDraft.bind(_this);
     return _this;
   }
 
@@ -61,6 +61,15 @@ var App = function (_Component) {
       if (this.state.user) {
         _authentication2.default.getToken().then(function (token) {
           _authentication2.default.writeCookie(token);
+        });
+      }
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (nextProps.hasUpdate && !this.props.hasUpdate) {
+        this.setState({
+          hasUpdate: true
         });
       }
     }
@@ -76,20 +85,13 @@ var App = function (_Component) {
         });
       } else {
         _authentication2.default.signIn().then(function (user) {
-          _this2.setState({ isChangingAuthentication: false, user: user });
+          _this2.setState({
+            isChangingAuthentication: false,
+            user: user,
+            forceOpenConsole: true
+          });
         });
       }
-    }
-  }, {
-    key: 'newDraft',
-    value: function newDraft() {
-      var _this3 = this;
-
-      this.setState({ isPreparingNewDraft: true });
-      _drafts2.default.new(this.state.user).then(function (draftKey) {
-        _this3.setState({ isPreparingNewDraft: false });
-        location.href = '/drafts/' + _this3.state.user.displayName + '/' + draftKey;
-      });
     }
   }, {
     key: 'render',
@@ -98,16 +100,16 @@ var App = function (_Component) {
         'div',
         { className: 'App-wrapper' },
         (0, _preact.h)(_Logo2.default, null),
-        (0, _preact.h)(_New2.default, {
-          isLoggedIn: Boolean(this.state.user),
-          isPreparingNewDraft: this.state.isPreparingNewDraft,
-          onClick: this.newDraft
-        }),
         (0, _preact.h)(_Login2.default, {
           isChangingAuthentication: this.state.isChangingAuthentication,
           isLoggedIn: Boolean(this.state.user),
           toggleLogin: this.toggleLogin
-        })
+        }),
+        this.state.hasUpdate ? (0, _preact.h)(_Update2.default, null) : null,
+        this.state.user ? (0, _preact.h)(_Console2.default, {
+          user: this.state.user,
+          forceOpen: this.state.forceOpenConsole
+        }) : null
       );
     }
   }]);

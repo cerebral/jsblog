@@ -14,13 +14,9 @@ var _CodeMirror = require('./CodeMirror');
 
 var _CodeMirror2 = _interopRequireDefault(_CodeMirror);
 
-var _drafts = require('../../services/drafts');
+var _draft = require('../../services/draft');
 
-var _drafts2 = _interopRequireDefault(_drafts);
-
-var _Publish = require('./Publish');
-
-var _Publish2 = _interopRequireDefault(_Publish);
+var _draft2 = _interopRequireDefault(_draft);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -40,15 +36,10 @@ var WriteArticle = function (_Component) {
     var _this = _possibleConstructorReturn(this, (WriteArticle.__proto__ || Object.getPrototypeOf(WriteArticle)).call(this, props));
 
     _this.state = {
-      draft: null,
       compiledArticle: null,
-      isSavingDraft: false,
-      isPublishingDraft: false,
       isLoadingDraft: true
     };
     _this.onChange = _this.onChange.bind(_this);
-    _this.saveDraft = _this.saveDraft.bind(_this);
-    _this.publishDraft = _this.publishDraft.bind(_this);
     return _this;
   }
 
@@ -57,11 +48,8 @@ var WriteArticle = function (_Component) {
     value: function componentWillMount() {
       var _this2 = this;
 
-      var path = 'drafts/' + this.props.user.uid + '/' + this.props.params.draftKey;
-
-      _drafts2.default.get(path).then(function (draft) {
+      _draft2.default.load(this.props.user.uid, this.props.params.draftKey).then(function (draft) {
         _this2.setState({
-          draft: draft,
           compiledArticle: (0, _utils.compileArticle)(draft.content),
           isLoadingDraft: false
         });
@@ -82,71 +70,21 @@ var WriteArticle = function (_Component) {
   }, {
     key: 'onChange',
     value: function onChange(value) {
-      clearInterval(this.saveInterval);
-      this.setState({
-        draft: Object.assign(this.state.draft, { content: value }),
-        compiledArticle: (0, _utils.compileArticle)(value)
+      var compiledArticle = (0, _utils.compileArticle)(value);
+
+      _draft2.default.update({
+        content: value,
+        title: _draft2.default.getTitleFromToc(compiledArticle.toc)
       });
-      this.saveInterval = setInterval(this.saveDraft, 10000);
-    }
-  }, {
-    key: 'saveDraft',
-    value: function saveDraft() {
-      var _this4 = this;
-
-      clearInterval(this.saveInterval);
-
-      var title = _drafts2.default.getTitleFromToc(this.state.compiledArticle.toc);
-      var articleName = _drafts2.default.createArticleName(title);
-      var path = 'drafts/' + this.props.user.uid + '/' + this.props.params.draftKey;
 
       this.setState({
-        isSavingDraft: true
-      });
-
-      return _drafts2.default.save(path, Object.assign({}, this.state.draft, {
-        title: title,
-        articleName: articleName,
-        tag: 'react'
-      })).then(function () {
-        _this4.setState({
-          isSavingDraft: false
-        });
-      });
-    }
-  }, {
-    key: 'publishDraft',
-    value: function publishDraft() {
-      var _this5 = this;
-
-      var title = _drafts2.default.getTitleFromToc(this.state.compiledArticle.toc);
-      var articleName = _drafts2.default.createArticleName(title);
-      var path = 'drafts/' + this.props.user.uid + '/' + this.props.params.draftKey;
-
-      clearInterval(this.saveInterval);
-      this.setState({
-        isPublishingDraft: true
-      });
-      _drafts2.default.save(path, Object.assign({}, this.state.draft, {
-        title: title,
-        articleName: articleName,
-        tag: 'react',
-        isPublished: true
-      })).then(function (draft) {
-        var path = 'articles/' + _this5.props.user.uid + '/' + draft.articleName;
-        return _drafts2.default.publish(path, Object.assign({}, draft, {
-          key: _this5.props.params.draftKey
-        }));
-      }).then(function () {
-        _this5.setState({
-          isPublishingDraft: false
-        });
+        compiledArticle: compiledArticle
       });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this6 = this;
+      var _this4 = this;
 
       if (this.state.isLoadingDraft) {
         return (0, _preact.h)('div', { className: 'WriteArticle-wrapper', style: { opacity: 0 } });
@@ -158,10 +96,10 @@ var WriteArticle = function (_Component) {
         (0, _preact.h)(
           'div',
           { ref: function ref(node) {
-              return _this6.codemirror = node;
+              return _this4.codemirror = node;
             } },
           (0, _preact.h)(_CodeMirror2.default, {
-            value: this.state.draft.content,
+            value: _draft2.default.current.content,
             onChange: this.onChange,
             key: 'codemirror'
           })
@@ -173,17 +111,13 @@ var WriteArticle = function (_Component) {
             'div',
             {
               ref: function ref(node) {
-                return _this6.previewContent = node;
+                return _this4.previewContent = node;
               },
               className: 'WriteArticle-previewContent'
             },
             this.state.compiledArticle.tree
           )
-        ),
-        (0, _preact.h)(_Publish2.default, {
-          onClick: this.publishDraft,
-          isPublishingDraft: this.state.isPublishingDraft
-        })
+        )
       );
     }
   }]);

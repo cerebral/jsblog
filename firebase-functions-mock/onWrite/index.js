@@ -118,8 +118,7 @@ function createEvent(ref, pathDescription, pathIndex, cb) {
       createEvent(snapshot.ref, pathDescription, pathIndex + 1, cb);
     }
 
-    if (pathIndex === pathDescription.length - 1) {
-      initialDataLoaded = true;
+    if (initialDataLoaded && pathIndex === pathDescription.length - 1) {
       cb(createCallbackEvent(pathDescription, pathIndex, snapshot));
     }
   });

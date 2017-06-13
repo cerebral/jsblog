@@ -49,6 +49,6 @@ app.get('/tags/:tag', (0, _run2.default)(_renderTagArticles2.default));
 
 app.get('/articles/:displayName', function (req, res) {});
 
-app.get('/articles/:displayName/:articleKey', (0, _run2.default)(_renderArticle2.default));
+app.get('/articles/:displayName/:articleName', (0, _run2.default)(_renderArticle2.default));
 
 exports.default = app;

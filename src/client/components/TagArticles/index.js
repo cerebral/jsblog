@@ -11,12 +11,14 @@ function TagArticles({ articles }) {
             <th>title</th>
             <th>author</th>
             <th>reads</th>
-            <th>recommended</th>
           </tr>
         </thead>
         <tbody>
           {articles.map((article, index) =>
-            <tr key={index}>
+            <tr
+              key={index}
+              onClick={`location.href = ${JSON.stringify(article.href)}`}
+            >
               <td className="TagArticles-datetime">
                 {new Date(article.datetime)
                   .toUTCString()
@@ -25,7 +27,7 @@ function TagArticles({ articles }) {
                   .join(' ')}
               </td>
               <td className="TagArticles-title">
-                <a href={article.href}>
+                <a href={article.href} onClick="event.stopPropagation()">
                   {article.title}
                 </a>
               </td>
@@ -34,9 +36,6 @@ function TagArticles({ articles }) {
               </td>
               <td className="TagArticles-readCount">
                 {article.readCount}
-              </td>
-              <td className="TagArticles-recommendedCount">
-                {article.recommendedCount}
               </td>
             </tr>
           )}

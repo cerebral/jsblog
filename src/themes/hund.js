@@ -14,6 +14,10 @@ export default `
     border: 2px solid #CCC;
     color: #CCC;
   }
+  .Article-content a {
+    text-decoration: none;
+    color: #66AABB;
+  }
   .App-update {
     color: #CCC;
     background-color: #161616;
@@ -27,6 +31,10 @@ export default `
   .App-console.open .App-console-bar {
     background-color: #CCC;
     color: #222;
+  }
+  .App-console-textarea a {
+    color: #CCC;
+    text-decoration: underline;
   }
   .App-console-textarea::-webkit-scrollbar-thumb {
     background-color: #CCC;
@@ -58,22 +66,24 @@ export default `
   .CodeMirror-selected { background: #222 !important; }
   .CodeMirror-cursor { border-left: 1px solid #CCC; }
 
-  span.cm-header { color: #FEA63C !important; }
-  span.cm-comment { color: #666; }
-  span.cm-atom { color: #FEA63C; }
-  span.cm-number { color: #FEA63C; }
+  .cm-header { color: #FEA63C !important; }
+  .cm-comment { color: #666; }
+  .cm-atom { color: #FEA63C; }
+  .cm-number { color: #FEA63C; }
 
-  span.cm-property, span.cm-attribute { color: #FEA63C; }
-  span.cm-keyword { color: #42717B; }
-  span.cm-string { color: #BDE077; }
+  .cm-property, .cm-attribute { color: #FEA63C; }
+  .cm-keyword { color: #42717B; }
+  .cm-string { color: #BDE077; }
 
-  span.cm-variable { color: #FEA63C !important; }
-  span.cm-variable-2 { color: #FEA63C !important; }
-  span.cm-def { color: #d28445; }
-  span.cm-bracket { color: #202020; }
-  span.cm-tag { color: #ac4142; }
-  span.cm-link { color: #42717B !important; }
-  span.cm-error { background: #ac4142; color: #505050; }
+  .cm-variable { color: #FEA63C !important; }
+  .cm-variable-2 { color: #FFE863 !important; }
+  .cm-def { color: #d28445; }
+  .cm-bracket { color: #202020; }
+  .cm-tag { color: #ac4142; }
+  .cm-link, .cm-url { color: #66AABB !important; }
+  .cm-error { background: #ac4142; color: #505050; }
+  .cm-quote.cm-quote-1 { color: #BDE077 !important;}
+  .cm-comment {color: #6D878D !important;}
 
   .CodeMirror-activeline-background { background: #222; }
   .CodeMirror-matchingbracket { text-decoration: underline; color: white !important; }

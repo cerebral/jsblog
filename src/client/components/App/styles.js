@@ -97,6 +97,7 @@ export default `
     bottom: 0;
     width: 100vw;
     font-family: monospace;
+    z-index: 9999999;
   }
   .App-console-bar {
     height: 30px;
@@ -141,7 +142,11 @@ export default `
   }
   .App-console-cmd {
     flex: 1;
+  }
+  .App-console-cmd input {
     border: 0;
+    color: inherit;
+    width: 100%;
     background: transparent;
     outline: none;
     font-size: 18px;

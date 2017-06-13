@@ -20,10 +20,9 @@ var _firebase4 = _interopRequireDefault(_firebase3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-if ('serviceWorker' in navigator) {
-  var registration = _runtime2.default.register();
-} /** @jsx h */
+var hasVerifiedUser = false; /** @jsx h */
 
+var user = null;
 
 _firebase4.default.initializeApp({
   apiKey: 'AIzaSyAn9hulrfDCwhzu66Mb6hJIbP9Z2TSo1T8',
@@ -48,28 +47,23 @@ function renderPage(Comp) {
   (0, _preact.render)((0, _preact.h)(Comp, props), container, container.lastChild);
 }
 
-var hasVerifiedUser = false;
-_firebase4.default.auth().onAuthStateChanged(function (user) {
-  if (hasVerifiedUser) {
-    return;
-  }
-
-  hasVerifiedUser = true;
+function route(path) {
+  var props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
   var urlMapper = (0, _urlMapper2.default)();
-  var matchedRoute = urlMapper.map(location.pathname, {
+  var matchedRoute = urlMapper.map(path, {
     '/': function _() {
       require.ensure([], function () {
-        renderApp(require('./components/App').default, { user: user });
+        renderApp(require('./components/App').default, Object.assign(props, { user: user }));
       });
     },
     '/drafts/:displayName/:draftKey': function draftsDisplayNameDraftKey(params) {
       require.ensure([], function () {
-        renderApp(require('./components/App').default, {
+        renderApp(require('./components/App').default, Object.assign(props, {
           user: user,
           isWriting: true,
           params: params
-        });
+        }));
         renderPage(require('./components/WriteArticle').default, {
           user: user,
           params: params
@@ -78,12 +72,12 @@ _firebase4.default.auth().onAuthStateChanged(function (user) {
     },
     '/tags/:tag': function tagsTag() {
       require.ensure([], function () {
-        renderApp(require('./components/App').default, { user: user });
+        renderApp(require('./components/App').default, Object.assign(props, { user: user }));
       });
     },
     '/articles/:displayName/:article': function articlesDisplayNameArticle(params) {
       require.ensure([], function () {
-        renderApp(require('./components/App').default, { user: user, params: params });
+        renderApp(require('./components/App').default, Object.assign(props, { user: user, params: params }));
       });
     }
   });
@@ -91,4 +85,29 @@ _firebase4.default.auth().onAuthStateChanged(function (user) {
   if (matchedRoute) {
     matchedRoute.match(matchedRoute.values);
   }
+}
+
+_firebase4.default.auth().onAuthStateChanged(function (authorizedUser) {
+  if (hasVerifiedUser) {
+    return;
+  }
+
+  hasVerifiedUser = true;
+  user = authorizedUser;
+
+  route(location.pathname);
 });
+
+if ('serviceWorker' in navigator) {
+  var registration = _runtime2.default.register();
+  navigator.serviceWorker.addEventListener('message', function (event) {
+    var message = JSON.parse(event.data);
+    switch (message.type) {
+      case 'update':
+        route(message.url, {
+          hasUpdate: true
+        });
+        return;
+    }
+  });
+}

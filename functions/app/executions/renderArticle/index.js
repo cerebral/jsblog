@@ -32,20 +32,24 @@ var _getArticle = require('./getArticle');
 
 var _getArticle2 = _interopRequireDefault(_getArticle);
 
-var _replaceCachedArticle = require('./replaceCachedArticle');
+var _setCache = require('./setCache');
 
-var _replaceCachedArticle2 = _interopRequireDefault(_replaceCachedArticle);
+var _setCache2 = _interopRequireDefault(_setCache);
 
 var _hasArticleChanged = require('./hasArticleChanged');
 
 var _hasArticleChanged2 = _interopRequireDefault(_hasArticleChanged);
 
+var _getUid = require('./getUid');
+
+var _getUid2 = _interopRequireDefault(_getUid);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = [_getSession2.default, _hasCachedPath2.default, {
-  true: [(0, _renderApp2.default)(), _renderArticle2.default, _renderIndex2.default, _sendIndex2.default, _getArticle2.default, _hasArticleChanged2.default, {
-    true: [_renderArticle2.default, _replaceCachedArticle2.default],
+  true: [(0, _renderApp2.default)(), (0, _renderArticle2.default)(), _renderIndex2.default, _sendIndex2.default, _getUid2.default, _getArticle2.default, _hasArticleChanged2.default, {
+    true: [(0, _renderArticle2.default)(true), _setCache2.default],
     false: []
   }],
-  false: [_getArticle2.default, (0, _renderApp2.default)(), _renderArticle2.default, _renderIndex2.default, _sendIndex2.default, _replaceCachedArticle2.default]
+  false: [_getUid2.default, _getArticle2.default, (0, _renderApp2.default)(), (0, _renderArticle2.default)(), _renderIndex2.default, _sendIndex2.default, _setCache2.default]
 }];

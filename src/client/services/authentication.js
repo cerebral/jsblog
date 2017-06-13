@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import { parseDisplayName, updateDisplayNameWithTheme } from '../../utils';
 
 export default {
   signIn() {
@@ -20,15 +21,12 @@ export default {
           .then(response => response.json())
           .then(data => {
             const login = data.login;
-
-            if (result.user.displayName === data.login) {
-              return result.user;
-            }
+            const displayName = `${login},hund`;
 
             const currentUser = firebase.auth().currentUser;
             return Promise.all([
               currentUser.updateProfile({
-                displayName: login,
+                displayName,
               }),
               firebase
                 .database()
@@ -39,7 +37,7 @@ export default {
                 .ref(`displayNames/byUid/${result.user.uid}`)
                 .set(login),
             ]).then(() => {
-              return Object.assign({}, result.user, { displayName: login });
+              return Object.assign({}, result.user, { displayName });
             });
           });
       })
@@ -58,8 +56,8 @@ export default {
       this.clearCache();
     });
   },
-  getToken() {
-    return firebase.auth().currentUser.getToken(false);
+  getToken(force = false) {
+    return firebase.auth().currentUser.getToken(force);
   },
   writeCookie(token) {
     document.cookie = `__session=${token}; max-age=3600; path=/`;
@@ -73,5 +71,12 @@ export default {
       navigator.serviceWorker.controller.postMessage(
         JSON.stringify({ type: 'reset' })
       );
+  },
+  updateTheme(theme) {
+    const currentUser = firebase.auth().currentUser;
+    console.log(updateDisplayNameWithTheme(currentUser.displayName, theme));
+    return currentUser.updateProfile({
+      displayName: updateDisplayNameWithTheme(currentUser.displayName, theme),
+    });
   },
 };

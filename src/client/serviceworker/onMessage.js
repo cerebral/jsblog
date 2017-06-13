@@ -18,17 +18,26 @@ function message(event) {
       }
       global.caches.delete(PAGES_CACHE);
     case 'update':
-      fetch(message.url).then(function(response) {
-        global.caches
-          .open(PAGES_CACHE)
-          .then(cache => {
-            return cache.put(message.url, response);
-          })
-          .then(() => {
-            if (DEBUG) {
-              console.log(`[SW] Update asset: ${message.url}`);
-            }
-          });
+      const urls = Array.isArray(message.url) ? message.url : [message.url];
+
+      urls.forEach(url => {
+        const headers = new Headers();
+        headers.append('Cookie', message.cookie);
+        fetch(url, {
+          headers,
+          credentials: 'same-origin',
+        }).then(function(response) {
+          global.caches
+            .open(PAGES_CACHE)
+            .then(cache => {
+              return cache.put(url, response);
+            })
+            .then(() => {
+              if (DEBUG) {
+                console.log(`[SW] Update asset: ${url}`);
+              }
+            });
+        });
       });
     default:
       break;

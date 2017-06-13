@@ -5,6 +5,7 @@ import Login from './Login';
 import authentication from '../../services/authentication';
 import Update from './Update';
 import Console from './Console';
+import firebase from 'firebase';
 
 class App extends Component {
   constructor(props) {

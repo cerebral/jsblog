@@ -51,10 +51,11 @@ export default {
     interval = setInterval(this.save.bind(this), 10000);
   },
   save() {
-    clearInterval(interval);
     this.update({
       datetime: Date.now(),
     });
+
+    clearInterval(interval);
 
     return firebase
       .database()
@@ -83,14 +84,34 @@ export default {
       .then(snapshot => snapshot.val());
   },
   publish() {
-    return firebase
-      .database()
-      .ref(`articles/${this.uid}/${this.current.articleName}`)
-      .set(
-        Object.assign({}, this.current, {
-          key: this.key,
-          isPublished: true,
-        })
-      );
+    return new Promise((resolve, reject) => {
+      let valueUpdateCount = 0;
+
+      const ref = firebase
+        .database()
+        .ref(`tagArticles/${this.current.tag}/${this.key}`);
+
+      const callback = ref.on('value', snapshot => {
+        if (
+          snapshot.val() &&
+          snapshot.val().datetime === this.current.datetime
+        ) {
+          ref.off('value', callback);
+          resolve();
+        }
+      });
+
+      firebase
+        .database()
+        .ref(`articles/${this.uid}/${this.current.articleName}`)
+        .set(
+          Object.assign({}, this.current, {
+            key: this.key,
+            isPublished: true,
+          })
+        );
+    }).catch(error => {
+      console.log('Error publishing', error);
+    });
   },
 };
