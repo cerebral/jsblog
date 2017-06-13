@@ -1,10 +1,11 @@
 import firebase from 'firebase-admin';
-import serviceAccount from 'serviceAccount';
 
 const readCountApp = firebase.initializeApp(
   {
-    credential: firebase.credential.cert(serviceAccount),
-    databaseURL: 'https://gblog-f47ee.firebaseio.com',
+    credential: firebase.credential.cert(
+      JSON.parse(process.env.SERVICE_ACCOUNT)
+    ),
+    databaseURL: JSON.parse(process.env.FIREBASE_CONFIG).databaseURL,
   },
   'readCount'
 );

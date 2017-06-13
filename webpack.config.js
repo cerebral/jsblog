@@ -60,12 +60,6 @@ module.exports = function(env) {
       inline: false,
     },
     plugins: [
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify(nodeEnv),
-        },
-        DEBUG: JSON.stringify(Boolean(nodeEnv !== 'production')),
-      }),
       new ServiceWorkerWebpackPlugin({
         entry: path.resolve('src', 'client', 'serviceworker', 'index.js'),
       }),

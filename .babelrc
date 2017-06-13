@@ -6,19 +6,22 @@
         ["module-resolver", {
           "alias": {
             "firebase-functions": "./firebase-functions-mock/index.js",
-            "config": "./app.config.json",
-            "serviceAccount": "./serviceAccount"
+            "config": "./app.config.json"
           }
-        }]
+        }],
+        ["transform-define", "./.babel.rc.define.js"]
       ]
     },
     "production": {
       "plugins": [
         ["module-resolver", {
           "alias": {
-            "config": "./src/app.config.json",
-            "serviceAccount": "./src/serviceAccount.json"
+            "config": "./src/app.config.json"
           }
+        }],
+        ["transform-define", {
+          "DEBUG": "false",
+          "process.env.NODE_ENV": "production"
         }]
       ]
     }

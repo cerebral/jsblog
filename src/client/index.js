@@ -9,14 +9,7 @@ import stats from './services/stats';
 let hasVerifiedUser = false;
 let user = null;
 
-firebase.initializeApp({
-  apiKey: 'AIzaSyAn9hulrfDCwhzu66Mb6hJIbP9Z2TSo1T8',
-  authDomain: 'gblog-f47ee.firebaseapp.com',
-  databaseURL: 'https://gblog-f47ee.firebaseio.com',
-  projectId: 'gblog-f47ee',
-  storageBucket: 'gblog-f47ee.appspot.com',
-  messagingSenderId: '298543710360',
-});
+firebase.initializeApp(JSON.parse(process.env.FIREBASE_CONFIG));
 
 function renderApp(Comp, props = {}) {
   const container = document.querySelector('#app');

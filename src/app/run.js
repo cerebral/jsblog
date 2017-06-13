@@ -2,14 +2,13 @@ import { FunctionTree } from 'function-tree';
 import { Provider as FirebaseProvider } from '@cerebral/firebase-admin';
 import RenderProvider from './providers/Render';
 import CacheProvider from './providers/Cache';
-import serviceAccount from 'serviceAccount';
 import Devtools from 'function-tree/devtools';
 
 const ft = new FunctionTree([
   RenderProvider,
   FirebaseProvider({
-    serviceAccount,
-    databaseURL: 'https://gblog-f47ee.firebaseio.com',
+    serviceAccount: JSON.parse(process.env.SERVICE_ACCOUNT),
+    databaseURL: JSON.parse(process.env.FIREBASE_CONFIG).databaseURL,
   }),
   CacheProvider,
 ]);
