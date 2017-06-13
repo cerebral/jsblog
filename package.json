@@ -1,5 +1,5 @@
 {
-  "name": "gblog",
+  "name": "jsblog",
   "version": "1.0.0",
   "description": "",
   "main": "webpack.config.js",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cerebral/gblog.git"
+    "url": "git+https://github.com/cerebral/jsblog.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cerebral/gblog/issues"
+    "url": "https://github.com/cerebral/jsblog/issues"
   },
-  "homepage": "https://github.com/cerebral/gblog#readme",
+  "homepage": "https://github.com/cerebral/jsblog#readme",
   "dependencies": {
     "@cerebral/firebase": "0.0.0-beta.3",
     "@cerebral/firebase-admin": "0.0.0-beta.3",

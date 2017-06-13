@@ -1,3 +1,5 @@
 node_modules
-function/index.js
 *.log
+functions
+!functions/package.json
+!functions/package-lock.json
