@@ -13,7 +13,8 @@ function getSession({ props, firebase }) {
         console.log('User', user);
         return { user: user || null };
       })
-      .catch(() => {
+      .catch(error => {
+        console.log('Could not get user', error);
         return { user: null };
       });
   } else {
