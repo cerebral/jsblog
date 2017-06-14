@@ -42,7 +42,7 @@ export default {
           });
       })
       .then(user => {
-        return this.getToken().then(token => ({ token, user }));
+        return this.getToken(true).then(token => ({ token, user }));
       })
       .then(result => {
         this.writeCookie(result.token);

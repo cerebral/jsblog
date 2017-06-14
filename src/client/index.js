@@ -80,6 +80,8 @@ firebase.auth().onAuthStateChanged(function(authorizedUser) {
   hasVerifiedUser = true;
   user = authorizedUser;
 
+  console.log(user);
+
   route(location.pathname);
 });
 

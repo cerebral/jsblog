@@ -1,3 +1,5 @@
+import admin from 'firebase-admin';
+
 function getSession({ props, firebase }) {
   const token = props.req.cookies.__session || null;
 
@@ -5,7 +7,10 @@ function getSession({ props, firebase }) {
     return firebase
       .verifyIdToken(token)
       .then(decodedToken => {
-        return { user: decodedToken || null };
+        return decodedToken && admin.auth().getUser(decodedToken.uid);
+      })
+      .then(user => {
+        return { user: user || null };
       })
       .catch(() => {
         return { user: null };
