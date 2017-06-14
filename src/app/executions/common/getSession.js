@@ -8,6 +8,7 @@ function getSession({ props, firebase }) {
     return firebase
       .verifyIdToken(token)
       .then(decodedToken => {
+        console.log('DecodedToken', decodedToken);
         return decodedToken && admin.auth().getUser(decodedToken.uid);
       })
       .then(user => {
