@@ -1,16 +1,18 @@
 export default `
   .TagArticles-wrapper {
     padding: 50px 0;
+    flex: 0 1 800px;
+  }
+  @media (max-width: 1024px) {
+    .TagArticles-wrapper {
+      padding: 100px 0 50px 0;
+      flex: 1;
+    }
   }
   .TagArticles-table {
-    border-collapse: collapse;
-  }
-  .TagArticles-table th {
-    text-align: left;
-    padding: 5px;
+    width: 100%;
   }
   .TagArticles-table tbody tr {
-    border: 1px solid rgb(175, 198, 199);
     cursor: pointer;
   }
   .TagArticles-table tbody tr:hover td {
@@ -27,12 +29,12 @@ export default `
   .TagArticles-title {
     font-size: 20px;
   }
-  .TagArticles-title a {
+  .TagArticles-title {
+    display: block;
     color: inherit;
     text-decoration: none;
   }
   .TagArticles-readCount {
-    font-size: 18px;
-    text-align: right;
+    font-size: 14px;
   }
 `;

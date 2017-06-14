@@ -6,6 +6,8 @@ function renderIndex({ props, render }) {
       styles: [props.appContent.style, props.tagArticlesContent.style],
       user: props.user,
       useDroidSansMono: true,
+      bodyClass: 'page-TagArticles',
+      prefetch: props.tagArticlesContent.content,
     }),
   };
 }

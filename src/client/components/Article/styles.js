@@ -4,6 +4,12 @@ export default `
     text-align: justify;
     font-family: "Droid Sans Mono";
   }
+  @media (max-width: 1024px) {
+  .Article-content {
+      padding: 50px 20px 20px 20px;
+      flex: 1;
+    }
+  }
   .Article-content h1 {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 3em;

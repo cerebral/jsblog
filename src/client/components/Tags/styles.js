@@ -4,6 +4,14 @@ export default `
     display: flex;
     align-items: center;
     height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  @media (max-width: 1024px) {
+    .Tags-wrapper {
+      flex: 1;
+      flex-wrap: wrap;
+    }
   }
   .Tags-tag {
     display: inline-block;
@@ -14,6 +22,11 @@ export default `
     color: inherit;
     text-decoration: none;
     margin: 5px;
+  }
+  @media (max-width: 1024px) {
+    .Tags-tag {
+
+    }
   }
   .Tags-tag:hover {
     opacity: 0.8;

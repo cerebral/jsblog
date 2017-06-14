@@ -73,9 +73,6 @@ export default {
     return 'No Title';
   },
   setTag(tag) {
-    if (!tag) {
-      throw new Error();
-    }
     this.current.tag = tag;
     return firebase
       .database()
@@ -105,7 +102,7 @@ export default {
         .database()
         .ref(`articles/${this.uid}/${this.current.articleName}`)
         .set(
-          Object.assign({}, this.current, {
+          Object.assign(this.current, {
             key: this.key,
             isPublished: true,
           })

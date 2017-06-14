@@ -6,6 +6,7 @@ function renderIndex({ props, render }) {
       styles: [props.appContent.style, props.writeArticleContent.style],
       user: props.user,
       useDroidSansMono: true,
+      bodyClass: 'page-WriteArticle',
     }),
   };
 }

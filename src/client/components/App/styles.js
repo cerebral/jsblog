@@ -83,6 +83,11 @@ export default `
     top: 10px;
     right: 10px;
   }
+  @media (max-width: 1024px) {
+    .Login-button {
+      display: none;
+    }
+  }
   .App-update {
     position: fixed;
     top: 40px;

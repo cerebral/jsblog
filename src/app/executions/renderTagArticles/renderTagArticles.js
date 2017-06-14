@@ -19,6 +19,7 @@ function renderTagArticlesFactory(forceRender) {
       tagArticlesContent: {
         html: render.component(<TagArticles articles={articles} />),
         style: tagArticlesStyles,
+        content: articles.map(article => article.href),
       },
     };
   }

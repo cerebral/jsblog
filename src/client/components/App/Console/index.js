@@ -1,141 +1,7 @@
 /** @jsx h */
 import { h, Component } from 'preact';
 import { compile, parseDisplayName } from '../../../../utils';
-import draft from '../../../services/draft';
-import cache from '../../../services/cache';
-import authentication from '../../../services/authentication';
-
-function renderWelcome() {
-  return [
-    '### Welcome to JSBlog',
-    '- jsblog new  - *write new article*',
-    '- jsblog tag  - *tag article*',
-    '- jsblog publish  - *publish article*',
-    '- jsblog edit  - *edit article*',
-    '- jsblog theme - *list possible themes*',
-    '- jsblog theme *sometheme* - *activate a new theme*',
-    '- jsblog help - *this welcome*',
-  ];
-}
-
-function evaluateCommand(text, props, updateTerminal) {
-  const login = parseDisplayName(props.user).login;
-
-  if (text === 'jsblog new') {
-    updateTerminal(['Creating draft...']);
-    return draft.create(props.user.uid).then(draftKey => {
-      updateTerminal(['Draft created, redirecting...']);
-      location.href = `/drafts/${login}/${draftKey}`;
-    });
-  }
-
-  if (
-    (text === 'jsblog publish' || text.indexOf('jsblog tag') === 0) &&
-    !draft.current
-  ) {
-    return updateTerminal(['You have to create a new article first']);
-  }
-
-  if (text === 'jsblog publish' && !draft.current.tag) {
-    return updateTerminal([
-      `You have to set a tag before you can publish the article.`,
-    ]);
-  }
-
-  if (text === 'jsblog edit') {
-    const ownerLogin = location.pathname.split('/')[2];
-    if (ownerLogin !== login) {
-      updateTerminal([`This is not your article!`]);
-    } else {
-      updateTerminal([`Redirecting you to the draft...`]);
-      location.href = `/drafts/${ownerLogin}/${document.querySelector('article')
-        .id}`;
-    }
-
-    return;
-  }
-
-  if (text === 'jsblog publish') {
-    updateTerminal(['Saving draft...']);
-    return draft
-      .save()
-      .then(() => {
-        updateTerminal(['Saved. Publishing...']);
-        return draft.publish();
-      })
-      .then(path => {
-        updateTerminal([
-          `Published at [/articles/${login}/${draft.current
-            .articleName}](/articles/${login}/${draft.current.articleName})`,
-        ]);
-        cache.clearUrl([
-          `/`,
-          `/articles/${login}/${draft.current.articleName}`,
-          `/tags/${draft.current.tag}`,
-        ]);
-      });
-  }
-
-  if (text.indexOf('jsblog tag') === 0 && draft.current.isPublished) {
-    return updateTerminal([
-      `You have already published this article with tag **${draft.current
-        .tag}**`,
-    ]);
-  }
-
-  if (text.indexOf('jsblog tag') === 0) {
-    updateTerminal(['Setting tag...']);
-    return draft
-      .setTag(text.split(' ')[2])
-      .then(tagInfo => {
-        if (tagInfo) {
-          updateTerminal([
-            'Tag is set. Current stats:',
-            `- Articles count: **${tagInfo.articleCount}**`,
-            `- Read count: **${tagInfo.readCount}**`,
-          ]);
-        } else {
-          updateTerminal(['Tag is set. You are the first to use this tag.']);
-        }
-      })
-      .catch(() => {
-        updateTerminal(['Unable to set this tag, sorry']);
-      });
-  }
-
-  if (text === 'jsblog theme') {
-    return updateTerminal([
-      '### Available themes',
-      '- hund',
-      '- mostly-bright',
-    ]);
-  }
-
-  if (text.indexOf('jsblog theme') === 0) {
-    const themes = ['hund', 'mostly-bright'];
-    const theme = text.split(' ')[2];
-    if (themes.indexOf(theme) === -1) {
-      return updateTerminal(['You have not given a valid theme']);
-    }
-
-    updateTerminal(['Updating theme...']);
-    return authentication
-      .updateTheme(theme)
-      .then(() => {
-        return authentication.getToken(true);
-      })
-      .then(token => {
-        authentication.writeCookie(token);
-        cache.clearAll();
-        updateTerminal(['Theme updated, reloading app']);
-        location.reload();
-      });
-  }
-
-  if (text === 'jsblog help') {
-    return updateTerminal(renderWelcome());
-  }
-}
+import cmd from '../../../services/cmd';
 
 class Console extends Component {
   constructor(props) {
@@ -147,7 +13,7 @@ class Console extends Component {
         ? []
         : localStorage.getItem('console')
           ? JSON.parse(localStorage.getItem('console'))
-          : renderWelcome(),
+          : cmd.getTerminalOutput('jsblog help', this.props),
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.submit = this.submit.bind(this);
@@ -180,7 +46,7 @@ class Console extends Component {
     this.setState({
       inputValue: '',
     });
-    evaluateCommand(value, this.props, newValue => {
+    cmd.run(value, this.props, newValue => {
       this.setState(
         {
           textareaValue: this.state.textareaValue.concat(newValue),

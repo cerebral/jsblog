@@ -12,6 +12,7 @@ const render = {
     return `<!DOCTYPE html>
       <html>
         <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1">
           <style>
             body {
               margin: 0;
@@ -33,8 +34,13 @@ const render = {
             options.user ? parseDisplayName(options.user).theme : 'hund'
           ]}</style>
           ${options.useDroidSansMono ? `<style>${DroidSansMono}</style>` : ''}
+          ${(options.prefetch || [])
+            .map(prefetch => {
+              return `<link rel="prefetch" href="${prefetch}">`;
+            })
+            .join('\n')}
         </head>
-        <body>
+        <body class="${options.bodyClass}">
           <div id="page">${options.pageHtml}</div>
           <div id="app">${options.appHtml}</div>
           ${config.scripts

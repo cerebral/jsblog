@@ -6,6 +6,10 @@ function renderIndex({ props, render }) {
       styles: [props.appContent.style, props.tagsContent.style],
       user: props.user,
       useDroidSansMono: false,
+      bodyClass: 'page-Root',
+      prefetch: props.tagsContent.content.slice(0, 3).map(tag => {
+        return `/tags/${tag.value}`;
+      }),
     }),
   };
 }
