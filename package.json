@@ -5,8 +5,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "start": "concurrently --prefix \"[{name}]\" --names \"CLIENT,FUNCTION\" -c \"white.bold,gray.bold\" \"webpack-dev-server\" \"babel-watch src/index.js --watch src\"",
-    "deploy": "npm run build:client && npm run build:functions && firebase deploy && node deploy/cleanPublic.js",
-    "build:client": "node deploy/cleanPublic.js && NODE_ENV=production webpack",
+    "deploy": "npm run build:client && npm run build:functions",
+    "build:client": "NODE_ENV=production webpack",
     "build:functions": "node deploy/writeAppConfig.js && NODE_ENV=production babel src --out-dir functions",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
