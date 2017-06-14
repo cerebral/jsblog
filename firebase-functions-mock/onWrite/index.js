@@ -1,5 +1,3 @@
-const firebase = require('firebase-admin');
-
 const oldValues = {};
 
 function getKey(pathIndexTriggered, pathIndex, snapshot) {
@@ -143,7 +141,7 @@ function createEvent(ref, pathDescription, pathIndex, cb) {
   }
 }
 
-function onWrite(path, cb) {
+function onWrite(path, cb, admin) {
   const pathDescription = path
     .split('/')
     .reduce((currentPathDescription, pathKey) => {
@@ -156,7 +154,7 @@ function onWrite(path, cb) {
       });
     }, []);
 
-  const ref = firebase.database().ref(pathDescription[0].name);
+  const ref = admin.database().ref(pathDescription[0].name);
 
   createEvent(ref, pathDescription, 1, cb);
 }

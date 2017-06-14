@@ -10,11 +10,9 @@ function getSession({ props, firebase }) {
         return decodedToken && admin.auth().getUser(decodedToken.uid);
       })
       .then(user => {
-        console.log('User', user);
         return { user: user || null };
       })
       .catch(error => {
-        console.log('Could not get user', error);
         return { user: null };
       });
   } else {

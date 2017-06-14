@@ -12,11 +12,15 @@ module.exports = {
   },
   database: {
     ref(path) {
+      const admin = this.admin;
+
       return {
         onWrite(cb) {
-          return onWrite(path, cb);
+          return onWrite(path, cb, admin);
         },
       };
     },
+    admin: null,
   },
+  IS_MOCK: true,
 };
