@@ -10,6 +10,7 @@ script:
   - npm run deploy
 deploy:
   provider: firebase
+  skip_cleanup: true
   token:
     secure: "1/NR5poUTm62Nv69QcyGsyX4Q-3so84u9zU8sDa2FL7Pc"
   project: "production"
