@@ -13,30 +13,26 @@ const readCountApp = firebase.initializeApp(
 function updateTagArticle(data) {
   return firebase
     .database()
-    .ref(`tagArticles/${data.article.tag}/${data.article.key}`)
-    .transaction(maybeTagArticle => {
-      if (!maybeTagArticle) {
-        return null;
+    .ref(`tagArticles/${data.article.tag}/${data.article.key}/readCount`)
+    .transaction(maybeReadCount => {
+      if (!maybeReadCount) {
+        return 1;
       }
 
-      return Object.assign({}, maybeTagArticle, {
-        readCount: maybeTagArticle.readCount + 1,
-      });
+      return maybeReadCount + 1;
     });
 }
 
 function updateTag(data) {
   return firebase
     .database()
-    .ref(`tags/${data.article.tag}`)
-    .transaction(maybeTag => {
-      if (!maybeTag) {
-        return null;
+    .ref(`tags/${data.article.tag}/readCount`)
+    .transaction(maybeReadCount => {
+      if (!maybeReadCount) {
+        return 1;
       }
 
-      return Object.assign({}, maybeTag, {
-        readCount: maybeTag.readCount + 1,
-      });
+      return maybeReadCount + 1;
     });
 }
 

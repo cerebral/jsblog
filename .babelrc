@@ -19,7 +19,7 @@
             "config": "./src/app.config.json"
           }
         }],
-        ["transform-define", "./.babel.rc.define.development.js"]
+        ["transform-define", "./.babel.rc.define.production.js"]
       ]
     }
   }
