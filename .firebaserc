@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "gblog-f47ee"
+    "default": "gblog-f47ee",
+    "production": "jsblog-15e68"
   }
 }

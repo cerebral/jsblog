@@ -1,5 +1,5 @@
 node_modules
 *.log
-functions
+functions/*
 !functions/package.json
 !functions/package-lock.json

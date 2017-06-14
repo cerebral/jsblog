@@ -1,0 +1,15 @@
+sudo: false
+language: node_js
+node_js: '6'
+cache:
+  directories:
+  - node_modules
+notifications:
+  email: false
+script:
+  - npm deploy
+deploy:
+  provider: firebase
+  token:
+    secure: "1/NR5poUTm62Nv69QcyGsyX4Q-3so84u9zU8sDa2FL7Pc"
+  project: "production"

@@ -9,7 +9,7 @@
             "config": "./app.config.json"
           }
         }],
-        ["transform-define", "./.babel.rc.define.js"]
+        ["transform-define", "./.babel.rc.define.development.js"]
       ]
     },
     "production": {
@@ -19,10 +19,7 @@
             "config": "./src/app.config.json"
           }
         }],
-        ["transform-define", {
-          "DEBUG": "false",
-          "process.env.NODE_ENV": "production"
-        }]
+        ["transform-define", "./.babel.rc.define.development.js"]
       ]
     }
   }
