@@ -4,7 +4,6 @@ const path = require('path');
 const webpack = require('webpack');
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProduction = nodeEnv === 'production';
-const nodeExternals = require('webpack-node-externals');
 const fs = require('fs');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 
