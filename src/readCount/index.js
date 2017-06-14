@@ -11,7 +11,7 @@ const readCountApp = firebase.initializeApp(
 );
 
 function updateTagArticle(data) {
-  return firebase
+  return readCountApp
     .database()
     .ref(`tagArticles/${data.article.tag}/${data.article.key}/readCount`)
     .transaction(maybeReadCount => {
@@ -24,7 +24,7 @@ function updateTagArticle(data) {
 }
 
 function updateTag(data) {
-  return firebase
+  return readCountApp
     .database()
     .ref(`tags/${data.article.tag}/readCount`)
     .transaction(maybeReadCount => {
@@ -37,7 +37,7 @@ function updateTag(data) {
 }
 
 function updateReadCount(event) {
-  return firebase
+  return readCountApp
     .database()
     .ref(`displayNames/byLogin/${event.params.displayName}`)
     .once('value')
