@@ -3,6 +3,7 @@ import admin from 'firebase-admin';
 function getSession({ props, firebase }) {
   const token = props.req.cookies.__session || null;
 
+  console.log('COOKIES', props.req.cookies);
   if (token) {
     return firebase
       .verifyIdToken(token)
