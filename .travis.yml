@@ -7,7 +7,7 @@ cache:
 notifications:
   email: false
 script:
-  - npm deploy
+  - npm run deploy
 deploy:
   provider: firebase
   token:
