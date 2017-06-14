@@ -7,7 +7,7 @@
     "start": "concurrently --prefix \"[{name}]\" --names \"CLIENT,FUNCTION\" -c \"white.bold,gray.bold\" \"webpack-dev-server\" \"babel-watch src/index.js --watch src\"",
     "deploy": "npm run build:client && npm run build:functions",
     "build:client": "webpack",
-    "build:functions": "node deploy/writeAppConfig.js && babel src --out-dir functions",
+    "build:functions": "node deploy/writeAppConfig.js && babel src --out-dir functions && cd functions && npm install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
