@@ -44,7 +44,7 @@ function updateReadCount(event) {
     .then(snapshot => {
       const uid = snapshot.val();
 
-      return firebase
+      return readCountApp
         .database()
         .ref(`articles/${uid}/${event.params.articleName}`)
         .once('value')
