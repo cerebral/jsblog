@@ -5,8 +5,9 @@ export default {
   signIn() {
     const provider = new firebase.auth.GithubAuthProvider();
     return firebase
-      .auth()
-      .signInWithPopup(provider)
+      .auth()[
+        window.innerWidth <= 1024 ? 'signInWithRedirect' : 'signInWithPopup'
+      ](provider)
       .then(result => {
         const accessToken = result.credential.accessToken;
         const headers = new Headers();

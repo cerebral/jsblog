@@ -4,31 +4,18 @@ import { h, Component } from 'preact';
 class Update extends Component {
   constructor(props) {
     super(props);
-    this.state = { isHidden: false };
-    this.onKeyDown = this.onKeyDown.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
   componentDidMount() {
-    window.addEventListener('keydown', this.onKeyDown);
+    window.addEventListener('click', this.onClick);
   }
-  onKeyDown(event) {
-    if (event.keyCode === 32) {
-      location.reload();
-      window.removeEventListener('keydown', this.onKeyDown);
-    } else if (event.keyCode === 27) {
-      this.setState({
-        isHidden: true,
-      });
-      window.removeEventListener('keydown', this.onKeyDown);
-    }
+  onClick(event) {
+    location.reload();
   }
   render() {
-    if (this.state.isHidden) {
-      return null;
-    }
-
     return (
       <div className="App-update">
-        Updated, hit <strong>SPACE</strong> or <strong>ESC</strong> to abort
+        Updated, <strong>click</strong> anywhere
       </div>
     );
   }

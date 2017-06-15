@@ -89,6 +89,12 @@ export default `
     top: 10px;
     right: 10px;
   }
+  @media (max-width: 1024px) {
+    .Login-button {
+      position: absolute;
+      height: 35px;
+    }
+  }
   .App-update {
     position: fixed;
     top: 40px;
