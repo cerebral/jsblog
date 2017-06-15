@@ -5,4 +5,7 @@ export default [
 
     return firebase.set(`subscriptions/${clientId}`, subscription);
   },
+  function sendResponse({ props }) {
+    props.res.sendStatus(200);
+  },
 ];
