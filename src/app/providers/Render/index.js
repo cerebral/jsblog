@@ -35,9 +35,11 @@ const render = {
             }
           </style>
           <style>${(options.styles || []).join('\n')}</style>
+          <!-- THEME_CONTENT_START -->
           <style>${themes[
             options.user ? parseDisplayName(options.user).theme : 'hund'
           ]}</style>
+          <!-- THEME_CONTENT_END -->
           ${options.useDroidSansMono ? `<style>${DroidSansMono}</style>` : ''}
           ${(options.prefetch || [])
             .map(prefetch => {
@@ -46,7 +48,9 @@ const render = {
             .join('\n')}
         </head>
         <body class="${options.bodyClass}">
+          <!-- PAGE_CONTENT_START -->
           <div id="page">${options.pageHtml}</div>
+          <!-- PAGE_CONTENT_END -->
           <div id="app">${options.appHtml}</div>
           ${config.scripts
             .map(script => `<script src="/${script}" defer></script>`)

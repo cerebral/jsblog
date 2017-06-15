@@ -89,9 +89,11 @@ if ('serviceWorker' in navigator) {
     const message = JSON.parse(event.data);
     switch (message.type) {
       case 'update':
-        route(message.url, {
-          hasUpdate: true,
-        });
+        if (message.pathname === location.pathname) {
+          route(message.pathname, {
+            hasUpdate: true,
+          });
+        }
         return;
     }
   });
