@@ -14,7 +14,9 @@
     "marksy": "^3.0.0",
     "preact": "^8.1.0",
     "preact-render-to-string": "^3.6.3",
-    "classnames": "^2.2.5"
+    "classnames": "^2.2.5",
+    "web-push": "^3.2.2",
+    "body-parser": "^1.17.2"
   },
   "private": true
 }

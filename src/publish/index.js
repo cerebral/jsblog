@@ -1,34 +1,28 @@
-export default function(admin) {
-  function publishArticle(event) {
+export default function(admin, webpush) {
+  function publishArticle(event, displayName) {
     const dataValue = event.data.val();
     const previousValue = event.data.previous.val();
 
+    const update = Object.assign(
+      {
+        content: dataValue.content,
+        datetime: dataValue.datetime,
+        author: displayName,
+        href: `/articles/${displayName}/${dataValue.articleName}`,
+        title: dataValue.title,
+      },
+      previousValue
+        ? {}
+        : {
+            readCount: 0,
+            publishDatetime: Date.now(),
+          }
+    );
+
     return admin
       .database()
-      .ref(`displayNames/byUid/${event.data.ref.parent.key}`)
-      .once('value', snapshot => {
-        const displayName = snapshot.val();
-        const update = Object.assign(
-          {
-            content: dataValue.content,
-            datetime: dataValue.datetime,
-            author: displayName,
-            href: `/articles/${displayName}/${dataValue.articleName}`,
-            title: dataValue.title,
-          },
-          previousValue
-            ? {}
-            : {
-                readCount: 0,
-                publishDatetime: Date.now(),
-              }
-        );
-
-        return admin
-          .database()
-          .ref(`tagArticles/${dataValue.tag}/${dataValue.key}`)
-          .update(update);
-      });
+      .ref(`tagArticles/${dataValue.tag}/${dataValue.key}`)
+      .update(update);
   }
 
   function updateTag(event) {
@@ -57,9 +51,47 @@ export default function(admin) {
   }
 
   return function publish(event) {
-    return updateTag(event)
-      .then(() => {
-        return publishArticle(event);
+    return admin
+      .database()
+      .ref(`displayNames/byUid/${event.data.ref.parent.key}`)
+      .once('value')
+      .then(snapshot => {
+        return snapshot.val();
+      })
+      .then(displayName => {
+        return updateTag(event)
+          .then(() => {
+            return publishArticle(event, displayName);
+          })
+          .then(() => {
+            if (!event.data.previous.val()) {
+              return admin
+                .database()
+                .ref('subscriptions')
+                .once('value')
+                .then(snapshot => {
+                  const subscriptions = snapshot.val();
+                  const article = event.data.val();
+
+                  return Promise.all(
+                    Object.keys(subscriptions).map(subscriptionKey => {
+                      const pushSubscription = subscriptions[subscriptionKey];
+
+                      return webpush.sendNotification(
+                        pushSubscription,
+                        JSON.stringify({
+                          title: article.title,
+                          body: `${displayName} | ${article.tag}`,
+                          href: `${process.env.NODE_ENV === 'production'
+                            ? 'https://www.jsblog.io'
+                            : 'http://localhost:3000'}/articles/${displayName}/${article.articleName}`,
+                        })
+                      );
+                    })
+                  );
+                });
+            }
+          });
       })
       .catch(error => {
         console.log('Publishing error', error);

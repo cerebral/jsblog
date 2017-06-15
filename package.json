@@ -7,7 +7,7 @@
     "start": "concurrently --prefix \"[{name}]\" --names \"CLIENT,FUNCTION\" -c \"white.bold,gray.bold\" \"webpack-dev-server\" \"babel-watch src/index.js --watch src\"",
     "deploy": "npm run build:client && npm run build:functions",
     "build:client": "webpack",
-    "build:functions": "node deploy/writeAppConfig.js && babel src --out-dir functions && cd functions && npm install",
+    "build:functions": "node deploy/writeConfigs.js && babel src --out-dir functions && cd functions && npm install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,6 +30,7 @@
     "babel-plugin-transform-define": "^1.3.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "body-parser": "^1.17.2",
     "cerebral": "^2.0.0-beta.3",
     "classnames": "^2.2.5",
     "codemirror": "^5.26.0",
@@ -45,6 +46,7 @@
     "preact-render-to-string": "^3.6.3",
     "serviceworker-webpack-plugin": "^0.2.2",
     "url-mapper": "^1.1.1",
+    "web-push": "^3.2.2",
     "webpack": "^2.6.1"
   },
   "devDependencies": {

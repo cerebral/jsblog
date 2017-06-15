@@ -80,13 +80,10 @@ firebase.auth().onAuthStateChanged(function(authorizedUser) {
   hasVerifiedUser = true;
   user = authorizedUser;
 
-  console.log(user);
-
   route(location.pathname);
 });
 
 if ('serviceWorker' in navigator) {
-  const registration = runtime.register();
   navigator.serviceWorker.addEventListener('message', function(event) {
     const message = JSON.parse(event.data);
     switch (message.type) {
@@ -97,4 +94,25 @@ if ('serviceWorker' in navigator) {
         return;
     }
   });
+
+  runtime
+    .register()
+    .then(() => {
+      return navigator.serviceWorker.ready;
+    })
+    .then(reg => {
+      reg.pushManager
+        .subscribe({
+          userVisibleOnly: true,
+        })
+        .then(function(sub) {
+          fetch('/subscribe', {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            body: JSON.stringify(sub),
+          });
+        });
+    });
 }

@@ -2,12 +2,14 @@ import { FunctionTree } from 'function-tree';
 import { Provider as FirebaseProvider } from '@cerebral/firebase-admin';
 import RenderProvider from './providers/Render';
 import CacheProvider from './providers/Cache';
+import WebPushProvider from './providers/WebPush';
 import Devtools from 'function-tree/devtools';
 
-export default function createRun(admin) {
+export default function createRun(admin, webpush) {
   const ft = new FunctionTree([
     RenderProvider,
     FirebaseProvider({}, admin),
+    WebPushProvider(webpush),
     CacheProvider,
   ]);
 

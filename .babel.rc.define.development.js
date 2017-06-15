@@ -1,6 +1,7 @@
 module.exports = {
   DEBUG: 'true',
   'process.env.NODE_ENV': 'development',
+  'process.env.GCMAPIKey': 'AAAARYKXgJg:APA91bHz5Z-StspBU7CSzJMMXQmjjqL5MI14vQrFxb9CzdZwvWyjC3jgN0vmo0gnSwTGtG8W_HGd0ZmiG82wEF0YHRTf6ZuUgSKZJX86bfAi_5KZoeq7zdZqGrpCdyHVWZvoFwMra_no',
   'process.env.FIREBASE_CONFIG': JSON.stringify({
     apiKey: 'AIzaSyAn9hulrfDCwhzu66Mb6hJIbP9Z2TSo1T8',
     authDomain: 'gblog-f47ee.firebaseapp.com',

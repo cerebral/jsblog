@@ -2,6 +2,7 @@
   "name": "JSBlog",
   "short_name": "JSBlog",
   "start_url": ".",
+  "gcm_sender_id": "298543710360",
   "display": "standalone",
   "background_color": "#161616",
   "description": "The JavaScript Blog",
