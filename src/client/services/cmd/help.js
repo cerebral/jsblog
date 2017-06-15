@@ -1,6 +1,6 @@
 function help(updateTerminal) {
   updateTerminal([
-    '### Welcome to JSBlog',
+    '### Welcome to JSBlog (BETA)',
     '- jsblog new  - *write new article*',
     '- jsblog tag  - *tag article*',
     '- jsblog publish  - *publish article*',
