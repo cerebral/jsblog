@@ -2,6 +2,7 @@ export default `
   .App-wrapper {
     position: relative;
     min-height: 100%;
+    width: 100%;
   }
   .App-content {
     display: flex;
