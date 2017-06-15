@@ -45,6 +45,7 @@ export default `
 
   .hljs {
     color: #909090;
+    background-color: #D3D3D3;
   }
   .hljs .hljs-keyword, .hljs .hljs-variable {
     color: #F59335;

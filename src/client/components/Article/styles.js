@@ -7,7 +7,10 @@ export default `
   @media (max-width: 1024px) {
   .Article-content {
       padding: 50px 20px 20px 20px;
-      flex: 1;
+      flex: none;
+      width: 100%;
+      box-sizing: border-box;
+      text-align: initial;
     }
   }
   .Article-content h1 {

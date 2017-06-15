@@ -16,6 +16,12 @@ export default `
     text-decoration: none;
     font-family: monospace;
   }
+  @media (max-width: 1024px) {
+    .Logo-wrapper {
+      position: absolute;
+      height: 50px;
+    }
+  }
   .Logo-js {
     box-sizing: border-box;
     display: flex;
@@ -83,11 +89,6 @@ export default `
     top: 10px;
     right: 10px;
   }
-  @media (max-width: 1024px) {
-    .Login-button {
-      display: none;
-    }
-  }
   .App-update {
     position: fixed;
     top: 40px;
@@ -102,6 +103,11 @@ export default `
     bottom: 0;
     width: 100vw;
     font-family: monospace;
+  }
+  @media (max-width: 1024px) {
+    .App-console {
+      display: none;
+    }
   }
   .App-console-bar {
     height: 30px;

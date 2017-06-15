@@ -24,6 +24,8 @@ const render = {
             }
             #app {
               position: absolute;
+              top: 0;
+              left: 0;
             }
             #page {
               min-height: 100vh;
