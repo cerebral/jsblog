@@ -5,6 +5,7 @@ import FirebaseProvider from '@cerebral/firebase';
 import UrlMapper from 'url-mapper';
 import firebase from 'firebase';
 import stats from './services/stats';
+import authentication from './services/authentication';
 
 let hasVerifiedUser = false;
 let user = null;
@@ -116,3 +117,23 @@ if ('serviceWorker' in navigator) {
         });
     });
 }
+
+let hidden, visibilityChange;
+if (typeof document.hidden !== 'undefined') {
+  hidden = 'hidden';
+  visibilityChange = 'visibilitychange';
+} else if (typeof document.msHidden !== 'undefined') {
+  hidden = 'msHidden';
+  visibilityChange = 'msvisibilitychange';
+} else if (typeof document.webkitHidden !== 'undefined') {
+  hidden = 'webkitHidden';
+  visibilityChange = 'webkitvisibilitychange';
+}
+
+function handleVisibilityChange() {
+  if (!document[hidden]) {
+    authentication.getToken().then(token => authentication.writeCookie(token));
+  }
+}
+
+document.addEventListener(visibilityChange, handleVisibilityChange, false);
