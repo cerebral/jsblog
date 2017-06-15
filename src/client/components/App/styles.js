@@ -102,19 +102,20 @@ export default `
     bottom: 0;
     width: 100vw;
     font-family: monospace;
-    z-index: 9999999;
   }
   .App-console-bar {
     height: 30px;
+    width: 30px;
     cursor: pointer;
     display: flex;
-    padding: 0 30px 0 10px;
+    align-items: center;
+    padding: 0 10px;
+    margin-left: 10px;
   }
   .App-console-title {
-    display: flex;
     font-size: 14px;
     font-weight: bold;
-    align-items: center;
+    text-align: center;
     flex: 1;
   }
   .App-console-expand {

@@ -74,12 +74,12 @@ class Console extends Component {
   }
   render() {
     return (
-      <div className={`App-console${this.state.isClosed ? '' : ' open'}`}>
+      <div
+        className={`App-console${this.state.isClosed ? '' : ' open'}`}
+        style={{ zIndex: this.state.isCloed ? '-1' : '999999999' }}
+      >
         <div className="App-console-bar" onClick={this.toggleExpand}>
-          <div className="App-console-title">JSBlog terminal</div>
-          <div className="App-console-expand">
-            {this.state.isClosed ? '▲' : '▼'}
-          </div>
+          <div className="App-console-title">cmd</div>
         </div>
         {this.state.isClosed
           ? null

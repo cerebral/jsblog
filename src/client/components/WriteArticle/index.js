@@ -26,7 +26,7 @@ class WriteArticle extends Component {
       const offset =
         this.previewContent.scrollHeight / this.codemirror.offsetHeight;
 
-      this.previewContent.scrollTop = pageYOffset * offset;
+      this.previewContent.scrollTop = pageYOffset * offset - 40;
     });
     this.saveInterval = null;
   }

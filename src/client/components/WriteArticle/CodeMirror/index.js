@@ -18,6 +18,9 @@ class CodeMirror extends Component {
     });
     setTimeout(() => {
       cm.setValue(this.props.value);
+      setTimeout(() => {
+        cm.refresh();
+      });
     });
   }
   render() {

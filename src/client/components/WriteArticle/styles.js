@@ -3,7 +3,7 @@ export default `
     display: flex;
     flex: 0 1 1000px;
     font-family: 'Droid Sans Mono';
-    transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.2s ease-in-out 0.2s;
   }
   .WriteArticle-codemirror {
     padding: 50px 0;
@@ -35,6 +35,7 @@ export default `
     overflow: hidden;
     width: 30vw;
     padding: 40px 0;
+    box-sizing: border-box;
   }
 
   .Publish-button {

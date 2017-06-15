@@ -23,12 +23,12 @@ export default `
     background-color: #161616;
     border: 2px solid #BDE077;
   }
-  .App-console {
-    border-bottom: 0;
+  .App-console-wrapper {
+    border-top: 1px solid #CCC;
     color: #CCC;
     background-color: #222;
   }
-  .App-console.open .App-console-bar {
+  .App-console .App-console-bar {
     background-color: #CCC;
     color: #222;
   }
