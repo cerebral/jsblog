@@ -53,7 +53,7 @@ function writeManifest() {
     })
     .then(manifest => {
       return utils.writeFile(
-        path('public', 'manifest.json'),
+        path.resolve('public', 'manifest.json'),
         JSON.stringify(manifest, null, 2)
       );
     });
