@@ -10,6 +10,8 @@ const vapidKeys = webpush.generateVAPIDKeys();
 
 webpush.setGCMAPIKey(process.env.GCMAPIKey);
 
+console.log(process.env.GCMAPIKey);
+
 webpush.setVapidDetails(
   'mailto:christianalfoni@gmail.com',
   vapidKeys.publicKey,
