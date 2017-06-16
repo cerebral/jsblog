@@ -36,6 +36,8 @@ class App extends Component {
     this.setState({ isChangingAuthentication: true });
     if (this.state.user) {
       authentication.signOut().then(() => {
+        authentication.clearCache();
+        authentication.eraseCookie();
         this.setState({ isChangingAuthentication: false, user: null });
       });
     } else {

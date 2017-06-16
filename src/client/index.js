@@ -73,15 +73,33 @@ function route(path, props = {}) {
   }
 }
 
-firebase.auth().onAuthStateChanged(function(authorizedUser) {
-  if (hasVerifiedUser) {
-    return;
+firebase.auth().getRedirectResult().then(function(result) {
+  if (result.user) {
+    user = result.user;
+    authentication
+      .getToken()
+      .then(() => authentication.clearCache())
+      .then(token => authentication.writeCookie(token))
+      .then(() => route(location.pathname));
+  } else {
+    firebase.auth().onAuthStateChanged(function(authorizedUser) {
+      if (hasVerifiedUser) {
+        return;
+      }
+
+      hasVerifiedUser = true;
+      user = authorizedUser;
+
+      if (user) {
+        authentication
+          .getToken()
+          .then(token => authentication.writeCookie(token))
+          .then(() => route(location.pathname));
+      } else {
+        route(location.pathname);
+      }
+    });
   }
-
-  hasVerifiedUser = true;
-  user = authorizedUser;
-
-  route(location.pathname);
 });
 
 if ('serviceWorker' in navigator) {

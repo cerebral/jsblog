@@ -53,9 +53,7 @@ export default {
       });
   },
   signOut() {
-    return firebase.auth().signOut().then(() => {
-      this.clearCache();
-    });
+    return firebase.auth().signOut();
   },
   getToken(force = false) {
     return firebase.auth().currentUser.getToken(force);

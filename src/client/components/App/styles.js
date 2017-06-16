@@ -68,14 +68,14 @@ export default `
     }
   }
   .App-button-loading {
-    -webkit-animation-name: blink,
+    -webkit-animation-name: blink;
     -webkit-animation-timing-function: ease-in-out;
     -webkit-animation-duration: 0.75s;
     -webkit-animation-direction: alternate;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-delay: 0.2s;
 
-    animation-name: blink,
+    animation-name: blink;
     animation-timing-function: ease-in-out;
     animation-duration: 0.75s;
     animation-direction: alternate;
@@ -83,7 +83,7 @@ export default `
     animation-delay: 0.2s;
     width: 0;
     padding: 0;
-    height: 0;
+    height: 0 !important;
   }
 
   .Login-button {
