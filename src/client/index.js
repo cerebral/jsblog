@@ -103,7 +103,7 @@ if ('serviceWorker' in navigator) {
     messaging.useServiceWorker(registration);
     messaging
       .requestPermission()
-      .then(function() {
+      .then(() => {
         console.log('Notification permission granted.');
         return messaging
           .getToken()
@@ -118,11 +118,11 @@ if ('serviceWorker' in navigator) {
               });
             }
           })
-          .catch(function(err) {
+          .catch(err => {
             console.log('An error occurred while retrieving token. ', err);
           });
       })
-      .catch(function(err) {
+      .catch(err => {
         console.log('Unable to get permission to notify.', err);
       });
   });

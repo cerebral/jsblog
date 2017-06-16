@@ -10,17 +10,11 @@ firebase.initializeApp({
 
 const messager = firebase.messaging();
 messager.setBackgroundMessageHandler(payload => {
-  const notificationTitle = payload.notification.title;
-  const notificationOptions = {
+  return self.registration.showNotification(payload.notification.title, {
     body: payload.notification.body,
-    icon: '/logo_48x48.png',
-    click_action: payload.notification.href,
-  };
-
-  return self.registration.showNotification(
-    notificationTitle,
-    notificationOptions
-  );
+    icon: payload.notification.icon,
+    click_action: payload.notification.click_action,
+  });
 });
 
 self.addEventListener('install', onInstall);

@@ -79,7 +79,8 @@ export default function(admin, webpush) {
                       notification: {
                         title: article.title,
                         body: `${displayName} | ${article.tag}`,
-                        href: `${process.env.NODE_ENV === 'production'
+                        icon: '/logo_48x48.png',
+                        click_action: `${process.env.NODE_ENV === 'production'
                           ? 'https://www.jsblog.io'
                           : 'http://localhost:3000'}/articles/${displayName}/${article.articleName}`,
                       },
