@@ -98,26 +98,34 @@ if ('serviceWorker' in navigator) {
     }
   });
 
-  runtime
-    .register()
-    .then(() => {
-      return navigator.serviceWorker.ready;
-    })
-    .then(reg => {
-      reg.pushManager
-        .subscribe({
-          userVisibleOnly: true,
-        })
-        .then(function(sub) {
-          fetch('/subscribe', {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            method: 'POST',
-            body: JSON.stringify(sub),
+  const messaging = firebase.messaging();
+  const registration = runtime.register().then(registration => {
+    messaging.useServiceWorker(registration);
+    messaging
+      .requestPermission()
+      .then(function() {
+        console.log('Notification permission granted.');
+        return messaging
+          .getToken()
+          .then(function(currentToken) {
+            if (currentToken) {
+              fetch('/subscribe', {
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                method: 'POST',
+                body: JSON.stringify({ token: currentToken }),
+              });
+            }
+          })
+          .catch(function(err) {
+            console.log('An error occurred while retrieving token. ', err);
           });
-        });
-    });
+      })
+      .catch(function(err) {
+        console.log('Unable to get permission to notify.', err);
+      });
+  });
 }
 
 let hidden, visibilityChange;
@@ -133,7 +141,7 @@ if (typeof document.hidden !== 'undefined') {
 }
 
 function handleVisibilityChange() {
-  if (!document[hidden]) {
+  if (!document[hidden] && user) {
     authentication.getToken().then(token => authentication.writeCookie(token));
   }
 }

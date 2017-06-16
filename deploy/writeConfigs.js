@@ -40,26 +40,7 @@ function writeAppConfig() {
     });
 }
 
-function writeManifest() {
-  return utils
-    .readFile(path.resolve('public', 'manifest.json'))
-    .then(content => {
-      return JSON.parse(content);
-    })
-    .then(manifest => {
-      manifest.gcm_sender_id = process.env.GCM_SENDER_ID;
-
-      return manifest;
-    })
-    .then(manifest => {
-      return utils.writeFile(
-        path.resolve('public', 'manifest.json'),
-        JSON.stringify(manifest, null, 2)
-      );
-    });
-}
-
-Promise.all([writeAppConfig(), writeManifest()])
+writeAppConfig()
   .then(() => {
     console.log('Updated config!');
   })

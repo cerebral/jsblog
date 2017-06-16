@@ -1,11 +1,4 @@
-export default [
-  function registerSubscription({ props, firebase }) {
-    const subscription = props.req.body;
-    const clientId = subscription.endpoint.split('/send')[1];
+import registerSubscription from './registerSubscription';
+import sendResponse from './sendResponse';
 
-    return firebase.set(`subscriptions/${clientId}`, subscription);
-  },
-  function sendResponse({ props }) {
-    props.res.sendStatus(200);
-  },
-];
+export default [registerSubscription, sendResponse];

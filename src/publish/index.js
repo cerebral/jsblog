@@ -73,22 +73,20 @@ export default function(admin, webpush) {
                   const subscriptions = snapshot.val();
                   const article = event.data.val();
 
-                  return Promise.all(
-                    Object.keys(subscriptions).map(subscriptionKey => {
-                      const pushSubscription = subscriptions[subscriptionKey];
-
-                      return webpush.sendNotification(
-                        pushSubscription,
-                        JSON.stringify({
-                          title: article.title,
-                          body: `${displayName} | ${article.tag}`,
-                          href: `${process.env.NODE_ENV === 'production'
-                            ? 'https://www.jsblog.io'
-                            : 'http://localhost:3000'}/articles/${displayName}/${article.articleName}`,
-                        })
-                      );
+                  return admin
+                    .messaging()
+                    .sendToDevice(Object.keys(subscriptions), {
+                      notification: {
+                        title: article.title,
+                        body: `${displayName} | ${article.tag}`,
+                        href: `${process.env.NODE_ENV === 'production'
+                          ? 'https://www.jsblog.io'
+                          : 'http://localhost:3000'}/articles/${displayName}/${article.articleName}`,
+                      },
                     })
-                  );
+                    .then(response => {
+                      console.log('Messages sent', response);
+                    });
                 });
             }
           });
