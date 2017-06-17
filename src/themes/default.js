@@ -57,7 +57,7 @@ export default `
     color: #666;
   }
   .hljs .hljs-tag, .hljs .hljs-type {
-    color: #42717B;
+    color: #597394;
   }
   .hljs .hljs-literal {
     color: #2196f3;

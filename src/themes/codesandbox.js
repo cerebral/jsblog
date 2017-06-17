@@ -91,7 +91,7 @@ export default `
   .cm-variable-2 { color: #aa759f !important; }
   .cm-def { color: #FAC863; }
   .cm-bracket { color: #202020; }
-  .cm-tag { color: #ac4142; }
+  .cm-tag { color: #EC5f67; }
   .cm-link, .cm-url { color: #6CAEDD !important; }
   .cm-error { background: #ac4142; color: #505050; }
   .cm-quote.cm-quote-1 { color: #99C794 !important;}
