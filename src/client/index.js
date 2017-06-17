@@ -6,6 +6,7 @@ import UrlMapper from 'url-mapper';
 import firebase from 'firebase';
 import stats from './services/stats';
 import authentication from './services/authentication';
+import cache from './services/cache';
 
 let hasVerifiedUser = false;
 let user = null;
@@ -23,6 +24,7 @@ function renderPage(Comp, props = {}) {
 }
 
 function route(path, props = {}) {
+  window.PREFETCHES && cache.updateUrls(window.PREFETCHES);
   const urlMapper = UrlMapper();
   const matchedRoute = urlMapper.map(path, {
     '/': function() {
@@ -104,14 +106,15 @@ firebase.auth().getRedirectResult().then(function(result) {
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.addEventListener('message', function(event) {
-    const message = JSON.parse(event.data);
+    console.log('EVENT', event);
+    const message = typeof event.data === 'string'
+      ? JSON.parse(event.data)
+      : event.data;
     switch (message.type) {
       case 'update':
-        if (message.pathname === location.pathname) {
-          route(message.pathname, {
-            hasUpdate: true,
-          });
-        }
+        route(location.pathname, {
+          hasUpdate: true,
+        });
         return;
     }
   });

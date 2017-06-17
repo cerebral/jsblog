@@ -72,10 +72,11 @@ export default function(admin, webpush) {
                 .then(snapshot => {
                   const subscriptions = snapshot.val();
                   const article = event.data.val();
+                  const subscriptionTokens = Object.keys(subscriptions);
 
                   return admin
                     .messaging()
-                    .sendToDevice(Object.keys(subscriptions), {
+                    .sendToDevice(subscriptionTokens, {
                       notification: {
                         title: article.title,
                         body: `${displayName} | ${article.tag}`,
@@ -86,7 +87,28 @@ export default function(admin, webpush) {
                       },
                     })
                     .then(response => {
-                      console.log('Messages sent', response);
+                      return Promise.all(
+                        response.results.map((result, index) => {
+                          if (result.error) {
+                            return admin
+                              .database()
+                              .ref(`subscriptions/${subscriptionTokens[index]}`)
+                              .set(null);
+                          } else if (result.canonicalRegistrationToken) {
+                            admin
+                              .database()
+                              .ref(`subscriptions/${subscriptionTokens[index]}`)
+                              .set(null);
+
+                            return admin
+                              .database()
+                              .ref(
+                                `subscriptions/${result.canonicalRegistrationToken}`
+                              )
+                              .set(Date.now());
+                          }
+                        })
+                      );
                     });
                 });
             }

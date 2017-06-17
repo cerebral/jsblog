@@ -1,97 +1,25 @@
 import { STATIC_CACHE, PAGES_CACHE } from './caches';
 
-function backgroundFetch(request, requestUrl, response) {
-  const copyCheck = response && response.clone();
-
-  return fetch(request)
-    .then(responseNetwork => {
-      if (!responseNetwork || !responseNetwork.ok) {
-        if (DEBUG) {
-          console.log(
-            `[SW] URL [${requestUrl.toString()}] wrong responseNetwork: ${responseNetwork.status} ${responseNetwork.type}`
-          );
-        }
-
-        return responseNetwork;
-      }
-
+function doFetch(request, requestUrl, response) {
+  return fetch(request).then(responseNetwork => {
+    if (!responseNetwork || !responseNetwork.ok) {
       if (DEBUG) {
-        console.log(`[SW] URL ${requestUrl.href} fetched`);
+        console.log(
+          `[SW] URL [${requestUrl.toString()}] wrong responseNetwork: ${responseNetwork.status} ${responseNetwork.type}`
+        );
       }
-
-      const responseCache = responseNetwork.clone();
-      const responseNetworkCheck = responseNetwork.clone();
-
-      global.caches
-        .open(requestUrl.href.match(/\.js$/) ? STATIC_CACHE : PAGES_CACHE)
-        .then(cache => {
-          return cache.put(request, responseCache);
-        })
-        .then(() => {
-          if (DEBUG) {
-            console.log(`[SW] Cache asset: ${requestUrl.href}`);
-          }
-
-          if (copyCheck) {
-            Promise.all([copyCheck.text(), responseNetworkCheck.text()])
-              .then(texts => {
-                const themeAMatch =
-                  texts[0].match(
-                    /\<\!\-\- THEME_CONTENT_START \-\-\>([\s\S]*)\<\!\-\- THEME_CONTENT_END \-\-\>/
-                  ) || [];
-                const themeBMatch =
-                  texts[1].match(
-                    /\<\!\-\- THEME_CONTENT_START \-\-\>([\s\S]*)\<\!\-\- THEME_CONTENT_END \-\-\>/
-                  ) || [];
-                const pageAMatch =
-                  texts[0].match(
-                    /\<\!\-\- PAGE_CONTENT_START \-\-\>([\s\S]*)\<\!\-\- PAGE_CONTENT_END \-\-\>/
-                  ) || [];
-                const pageBMatch =
-                  texts[1].match(
-                    /\<\!\-\- PAGE_CONTENT_START \-\-\>([\s\S]*)\<\!\-\- PAGE_CONTENT_END \-\-\>/
-                  ) || [];
-
-                if (
-                  (themeAMatch[1] &&
-                    themeBMatch[1] &&
-                    themeAMatch[1] !== themeBMatch[1]) ||
-                  (pageAMatch[1] &&
-                    pageBMatch[1] &&
-                    pageAMatch[1] !== pageBMatch[1])
-                ) {
-                  self.clients.matchAll().then(function(clients) {
-                    Promise.all(
-                      clients.map(function(client) {
-                        return client.postMessage(
-                          JSON.stringify({
-                            type: 'update',
-                            pathname: requestUrl.pathname,
-                          })
-                        );
-                      })
-                    );
-                  });
-                }
-              })
-              .catch(error => {
-                console.log('Unable to verify change', error);
-              });
-          }
-        });
 
       return responseNetwork;
-    })
-    .catch(error => {
-      // User is landing on our page.
-      if (event.request.mode === 'navigate') {
-        return global.caches.match('./');
-      }
+    }
 
-      console.log(error);
+    if (DEBUG) {
+      console.log(`[SW] URL ${requestUrl.href} fetched`);
+    }
 
-      return null;
-    });
+    const responseCache = responseNetwork.clone();
+
+    return responseNetwork;
+  });
 }
 
 function onFetch(event) {
@@ -125,9 +53,20 @@ function onFetch(event) {
       console.log(`[SW] fetch PAGE in background ${requestUrl.href}`);
     }
 
-    const fetched = backgroundFetch(request, requestUrl, response);
+    return (
+      response ||
+      fetch(request).then(response => {
+        const cachedResponse = response.clone();
 
-    return response || fetched;
+        global.caches
+          .open(requestUrl.href.match(/\.js$/) ? STATIC_CACHE : PAGES_CACHE)
+          .then(cache => {
+            return cache.put(request, cachedResponse);
+          });
+
+        return response;
+      })
+    );
   });
 
   event.respondWith(resource);

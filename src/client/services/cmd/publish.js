@@ -27,7 +27,7 @@ function publish(updateTerminal, props) {
         `Published at [/articles/${login}/${draft.current
           .articleName}](/articles/${login}/${draft.current.articleName})`,
       ]);
-      cache.clearUrl([
+      cache.updateUrls([
         `/`,
         `/articles/${login}/${draft.current.articleName}`,
         `/tags/${draft.current.tag}`,

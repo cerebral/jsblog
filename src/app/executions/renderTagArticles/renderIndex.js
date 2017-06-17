@@ -7,7 +7,7 @@ function renderIndex({ props, render }) {
       user: props.user,
       useDroidSansMono: true,
       bodyClass: 'page-TagArticles',
-      prefetch: props.tagArticlesContent.content,
+      prefetch: props.tagArticlesContent.content.slice(0, 3),
     }),
   };
 }

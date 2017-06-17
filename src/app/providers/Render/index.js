@@ -1,11 +1,11 @@
 import config from 'config';
 import renderToString from 'preact-render-to-string';
 import DroidSansMono from './DroidSansMono.font';
-import hund from '../../../themes/hund';
-import mostlyBright from '../../../themes/mostly-bright';
+import defaultTheme from '../../../themes/default';
+import codesandbox from '../../../themes/codesandbox';
 import { parseDisplayName } from '../../../utils';
 
-const themes = { hund, 'mostly-bright': mostlyBright };
+const themes = { default: defaultTheme, codesandbox };
 
 const render = {
   index(options) {
@@ -37,15 +37,15 @@ const render = {
           <style>${(options.styles || []).join('\n')}</style>
           <!-- THEME_CONTENT_START -->
           <style>${themes[
-            options.user ? parseDisplayName(options.user).theme : 'hund'
+            options.user ? parseDisplayName(options.user).theme : 'default'
           ]}</style>
           <!-- THEME_CONTENT_END -->
           ${options.useDroidSansMono ? `<style>${DroidSansMono}</style>` : ''}
-          ${(options.prefetch || [])
-            .map(prefetch => {
-              return `<link rel="prefetch" href="${prefetch}">`;
-            })
-            .join('\n')}
+          ${options.prefetch
+            ? `<script>window.PREFETCHES = ${JSON.stringify(
+                options.prefetch
+              )};</script>`
+            : ''}
         </head>
         <body class="${options.bodyClass}">
           <!-- PAGE_CONTENT_START -->

@@ -1,14 +1,14 @@
 import authentication from '../authentication';
 import cache from '../cache';
 
-const themes = ['hund', 'mostly-bright'];
+const themes = ['default', 'codesandbox'];
 
 function theme(updateTerminal, props, name) {
   if (!name) {
     return updateTerminal([
       '### Available themes',
-      '- hund',
-      '- mostly-bright',
+      '- default',
+      '- codesandbox',
     ]);
   }
 

@@ -22,7 +22,7 @@ export default {
           .then(response => response.json())
           .then(data => {
             const login = data.login;
-            const displayName = `${login},hund`;
+            const displayName = `${login},default`;
 
             const currentUser = firebase.auth().currentUser;
             return Promise.all([
@@ -73,7 +73,6 @@ export default {
   },
   updateTheme(theme) {
     const currentUser = firebase.auth().currentUser;
-    console.log(updateDisplayNameWithTheme(currentUser.displayName, theme));
     return currentUser.updateProfile({
       displayName: updateDisplayNameWithTheme(currentUser.displayName, theme),
     });

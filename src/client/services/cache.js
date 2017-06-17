@@ -6,11 +6,16 @@ export default {
         JSON.stringify({ type: 'reset' })
       );
   },
-  clearUrl(url) {
+  updateUrls(urls) {
     navigator.serviceWorker &&
       navigator.serviceWorker.controller &&
       navigator.serviceWorker.controller.postMessage(
-        JSON.stringify({ type: 'update', url, cookie: document.cookie })
+        JSON.stringify({
+          type: 'update',
+          urls,
+          currentUrl: location.href,
+          cookie: document.cookie,
+        })
       );
   },
 };
