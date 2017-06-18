@@ -47,7 +47,7 @@ export default {
 
     .hljs {
       color: #FFF;
-      background-color: #28374c;
+      background-color: rgba(0,0,0,0.15);
     }
     .hljs .hljs-function {
       color: #FFF;
@@ -56,7 +56,7 @@ export default {
       color: #597394;
     }
     .hljs .hljs-comment, .hljs .hljs-meta {
-      color: #666;
+      color: rgba(255,255,255,0.5);
     }
     .hljs .hljs-tag, .hljs .hljs-type {
       color: #597394;
