@@ -17,7 +17,7 @@ function publish(updateTerminal, props) {
 
   updateTerminal(['Saving draft...']);
   return draft
-    .save()
+    .save({ isPublished: true })
     .then(() => {
       updateTerminal(['Saved. Publishing...']);
       return draft.publish();

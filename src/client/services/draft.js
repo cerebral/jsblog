@@ -43,17 +43,24 @@ export default {
     clearInterval(interval);
     Object.assign(this.current, update);
     Object.assign(this.current, {
-      articleName: this.current.title
-        .toLowerCase()
-        .replace(/[^\w\s]/gi, '')
-        .replace(/\s/g, '_'),
+      articleName: this.current.isPublished
+        ? this.current.articleName
+        : this.current.title
+            .toLowerCase()
+            .replace(/[^\w\s]/gi, '')
+            .replace(/\s/g, '_'),
     });
     interval = setInterval(this.save.bind(this), 10000);
   },
-  save() {
-    this.update({
-      datetime: Date.now(),
-    });
+  save(data = {}) {
+    this.update(
+      Object.assign(
+        {
+          datetime: Date.now(),
+        },
+        data
+      )
+    );
 
     clearInterval(interval);
 

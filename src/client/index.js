@@ -106,7 +106,6 @@ firebase.auth().getRedirectResult().then(function(result) {
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.addEventListener('message', function(event) {
-    console.log('EVENT', event);
     const message = typeof event.data === 'string'
       ? JSON.parse(event.data)
       : event.data;

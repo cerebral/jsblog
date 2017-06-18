@@ -9,10 +9,14 @@ const themes = { default: defaultTheme, codesandbox };
 
 const render = {
   index(options) {
+    const theme =
+      themes[options.user ? parseDisplayName(options.user).theme : 'default'];
+
     return `<!DOCTYPE html>
       <html>
         <head>
           <meta name="viewport" content="width=device-width, initial-scale=1">
+          <meta name="theme-color" content="${theme.color}">
           <link rel="manifest" href="/manifest.json">
           <link rel="icon" href="/logo_48x48.png">
           <style>
@@ -36,9 +40,7 @@ const render = {
           </style>
           <style>${(options.styles || []).join('\n')}</style>
           <!-- THEME_CONTENT_START -->
-          <style>${themes[
-            options.user ? parseDisplayName(options.user).theme : 'default'
-          ]}</style>
+          <style>${theme.style}</style>
           <!-- THEME_CONTENT_END -->
           ${options.useDroidSansMono ? `<style>${DroidSansMono}</style>` : ''}
           ${options.prefetch
