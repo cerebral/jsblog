@@ -21,7 +21,7 @@ export default {
     }
     .Article-content a {
       text-decoration: none;
-      color: #eb1e64;
+      color: #2196f3;
     }
     .Article-content li {
       color: #4caf50;
@@ -103,7 +103,7 @@ export default {
     .cm-def { color: #d28445; }
     .cm-bracket { color: #202020; }
     .cm-tag { color: #597394 !important; }
-    .cm-link, .cm-url { color: #eb1e64 !important; }
+    .cm-link, .cm-url { color: #2196f3 !important; text-decoration: none !important; }
     .cm-error { background: #ac4142; color: #505050; }
     .cm-quote.cm-quote-1 { color: #f0b937 !important;}
     .cm-comment {color: rgba(255,255,255,0.5) !important;}

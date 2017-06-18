@@ -106,7 +106,7 @@ export default {
     .cm-def { color: #FAC863; }
     .cm-bracket { color: #202020; }
     .cm-tag { color: #EC5f67 !important; }
-    .cm-link, .cm-url { color: #6CAEDD !important; }
+    .cm-link, .cm-url { color: #6CAEDD !important; text-decoration: none !important; }
     .cm-error { background: #ac4142; color: #505050; }
     .cm-quote.cm-quote-1 { color: #99C794 !important;}
     .cm-comment {color: #626466 !important;}

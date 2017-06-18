@@ -38,7 +38,7 @@ export default `
     padding: 2px 5px;
   }
   .Article-content code.hljs {
-    padding: 10px;
+    padding: 15px;
   }
   .Article-content strong {
     font-size: 1.1em;
