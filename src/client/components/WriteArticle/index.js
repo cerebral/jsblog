@@ -3,6 +3,7 @@ import { h, Component } from 'preact';
 import { compileArticle } from '../../../utils';
 import CodeMirror from './CodeMirror';
 import draft from '../../services/draft';
+import { parseDisplayName } from '../../../utils';
 
 class WriteArticle extends Component {
   constructor(props) {
@@ -16,7 +17,9 @@ class WriteArticle extends Component {
   componentWillMount() {
     draft.load(this.props.user.uid, this.props.params.draftKey).then(draft => {
       this.setState({
-        compiledArticle: compileArticle(draft.content),
+        compiledArticle: compileArticle(draft.content, {
+          login: parseDisplayName(this.props.user).login,
+        }),
         isLoadingDraft: false,
       });
     });
@@ -31,7 +34,9 @@ class WriteArticle extends Component {
     this.saveInterval = null;
   }
   onChange(value) {
-    const compiledArticle = compileArticle(value);
+    const compiledArticle = compileArticle(value, {
+      login: parseDisplayName(this.props.user).login,
+    });
 
     draft.update({
       content: value,

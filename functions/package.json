@@ -11,7 +11,7 @@
     "firebase-functions": "^0.5.7",
     "firebase-server": "^0.10.1",
     "function-tree": "^1.0.0-beta.3",
-    "marksy": "^3.0.0",
+    "marksy": "^3.1.0",
     "preact": "^8.1.0",
     "preact-render-to-string": "^3.6.3",
     "classnames": "^2.2.5",

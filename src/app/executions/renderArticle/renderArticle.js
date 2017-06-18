@@ -12,7 +12,12 @@ function renderArticleFactory(forceRender) {
 
     return {
       articleContent: {
-        html: render.component(<Article article={props.article} />),
+        html: render.component(
+          <Article
+            article={props.article}
+            login={props.req.params.displayName}
+          />
+        ),
         style: `${highlightStyles}\n${articleStyles}`,
       },
     };

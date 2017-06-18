@@ -18,8 +18,8 @@ export const compile = marksy({
   highlight: hljs,
   components: { Image: ImageComponent },
   elements: {
-    img({ src, alt }) {
-      const login = location.pathname.split('/')[2];
+    img({ src, alt, context }) {
+      const login = context.login;
       let url = src;
       if (src.substr(0, 4) !== 'http') {
         url = `https://firebasestorage.googleapis.com/v0/b/${storageBucket}/o/${encodeURIComponent(
@@ -32,8 +32,8 @@ export const compile = marksy({
   },
 });
 
-export function compileArticle(content) {
-  return compile(content);
+export function compileArticle(content, context) {
+  return compile(content, {}, context);
 }
 
 export function updateDisplayNameWithTheme(displayName, theme) {

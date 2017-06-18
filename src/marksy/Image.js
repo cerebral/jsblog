@@ -3,9 +3,10 @@ import { h } from 'preact';
 
 const storageBucket = JSON.parse(process.env.FIREBASE_CONFIG).storageBucket;
 
-function Image({ src, alt, width, height, align }) {
-  const login = location.pathname.split('/')[2];
+function Image({ src, alt, width, height, align, context }) {
+  const login = context.login;
   let url = src;
+
   if (src.substr(0, 4) !== 'http') {
     url = `https://firebasestorage.googleapis.com/v0/b/${storageBucket}/o/${encodeURIComponent(
       `${login}/${src}`
