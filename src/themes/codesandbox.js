@@ -23,8 +23,14 @@ export default {
       text-decoration: none;
       color: #6CAEDD;
     }
-    .Article-content li::before {
+    .Article-content code {
+      background-color: #24282A;
+    }
+    .Article-content li {
       color: #aa759f;
+    }
+    .Article-content li p {
+      color: #E0E0E0;
     }
     .App-update {
       color: #E0E0E0;

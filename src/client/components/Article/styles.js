@@ -31,27 +31,8 @@ export default `
   .Article-content p {
     line-height: 1.5em;
   }
-  .Article-content ul, .Article-content ol {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .Article-content li {
-    margin-bottom: 1em;
-    padding-left: 1em;
-    text-indent: -.7em;
-  }
-  .Article-content li p {
-    display: inline;
-  }
-  .Article-content ul li::before {
-    content: "• ";
-  }
-  .Article-content ol { counter-reset: item; }
-  .Article-content ol li { display: block; }
-  .Article-content ol li:before {
-      content: counter(item) ". ";
-      counter-increment: item;
+  .Article-content code {
+    padding: 2px 5px;
   }
   .Article-content strong {
     font-size: 1.1em;
