@@ -26,7 +26,7 @@ export default {
     .Article-content li {
       color: #4caf50;
     }
-    .Article-content li p {
+    .Article-content li > span {
       color: rgba(255,255,255,0.8);
     }
     .Article-content code {

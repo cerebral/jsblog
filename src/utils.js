@@ -29,6 +29,9 @@ export const compile = marksy({
 
       return <img src={url} alt={alt} />;
     },
+    li({ children }) {
+      return <li><span>{children}</span></li>;
+    },
   },
 });
 

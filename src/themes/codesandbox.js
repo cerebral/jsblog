@@ -29,7 +29,7 @@ export default {
     .Article-content li {
       color: #aa759f;
     }
-    .Article-content li p {
+    .Article-content li > span {
       color: #E0E0E0;
     }
     .App-update {
