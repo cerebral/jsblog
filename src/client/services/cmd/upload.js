@@ -23,7 +23,9 @@ function upload(updateTerminal, props, name) {
       function(snapshot) {
         // Observe state change events such as progress, pause, and resume
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        const progress = snapshot.bytesTransferred / snapshot.totalBytes * 100;
+        const progress = parseInt(
+          snapshot.bytesTransferred / snapshot.totalBytes * 100
+        );
         updateTerminal([`Uploading... ${progress}%`], true);
       },
       function() {

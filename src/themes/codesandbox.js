@@ -16,9 +16,15 @@ export default {
       border: 2px solid #E0E0E0;
       color: #E0E0E0;
     }
+    .Component-Image {
+      background-color: #24282A;
+    }
     .Article-content a {
       text-decoration: none;
       color: #6CAEDD;
+    }
+    .Article-content li::before {
+      color: #aa759f;
     }
     .App-update {
       color: #E0E0E0;
@@ -62,7 +68,7 @@ export default {
       color: #666;
     }
     .hljs .hljs-tag, .hljs .hljs-type {
-      color: #42717B;
+      color: #EC5f67;
     }
     .hljs .hljs-literal {
       color: #aa759f;
@@ -85,15 +91,15 @@ export default {
     .cm-atom { color: #aa759f; }
     .cm-number { color: #aa759f; }
 
-    .cm-property, .cm-attribute { color: #6CAEDD; }
+    .cm-property, .cm-attribute { color: #aa759f !important; }
     .cm-keyword { color: #42717B; }
-    .cm-string { color: #99C794; }
+    .cm-string { color: #99C794 !important; }
 
     .cm-variable { color: rgb(255, 193, 112) !important; }
     .cm-variable-2 { color: #aa759f !important; }
     .cm-def { color: #FAC863; }
     .cm-bracket { color: #202020; }
-    .cm-tag { color: #EC5f67; }
+    .cm-tag { color: #EC5f67 !important; }
     .cm-link, .cm-url { color: #6CAEDD !important; }
     .cm-error { background: #ac4142; color: #505050; }
     .cm-quote.cm-quote-1 { color: #99C794 !important;}

@@ -2,36 +2,42 @@ export default {
   color: '#202634',
   style: `
     #page {
-      color: #FFF;
+      color: rgba(255,255,255,0.8);
       background-color: #202634;
     }
     .Logo-js {
       color: #202634;
-      background-color: #FFF;
+      background-color: rgba(255,255,255,0.8);
     }
     .Logo-blog {
-      color: #FFF;
+      color: rgba(255,255,255,0.8);
     }
     .Login-button {
-      border: 2px solid #FFF;
-      color: #FFF;
+      border: 2px solid rgba(255,255,255,0.8);
+      color: rgba(255,255,255,0.8);
+    }
+    .Component-Image {
+      background-color: #28374c;
     }
     .Article-content a {
       text-decoration: none;
       color: #eb1e64;
     }
+    .Article-content li::before {
+      color: #4caf50;
+    }
     .App-update {
-      color: #FFF;
+      color: rgba(255,255,255,0.8);
       background-color: #202634;
       border: 2px solid #f0b937;
     }
     .App-console-wrapper {
-      border-top: 1px solid #FFF;
-      color: #FFF;
+      border-top: 1px solid rgba(255,255,255,0.8);
+      color: rgba(255,255,255,0.8);
       background-color: #28374c;
     }
     .App-console .App-console-bar {
-      background-color: #FFF;
+      background-color: rgba(255,255,255,0.8);
       color: #28374c;
     }
     .App-console-textarea a {
@@ -39,18 +45,18 @@ export default {
       text-decoration: underline;
     }
     .App-console-textarea::-webkit-scrollbar-thumb {
-      background-color: #FFF;
+      background-color: rgba(255,255,255,0.8);
     }
     .App-console-cmd, .App-console-cmd-sudo {
-      color: #FFF;
+      color: rgba(255,255,255,0.8);
     }
 
     .hljs {
-      color: #FFF;
+      color: rgba(255,255,255,0.8);
       background-color: rgba(0,0,0,0.15);
     }
     .hljs .hljs-function {
-      color: #FFF;
+      color: rgba(255,255,255,0.8);
     }
     .hljs .hljs-keyword, .hljs .hljs-variable {
       color: #597394;
@@ -74,9 +80,9 @@ export default {
       color: #D23D3D;
     }
 
-    .CodeMirror { background: transparent; color: #FFF; }
+    .CodeMirror { background: transparent; color: rgba(255,255,255,0.8); }
     .CodeMirror-selected { background: #28374c !important; }
-    .CodeMirror-cursor { border-left: 1px solid #FFF; }
+    .CodeMirror-cursor { border-left: 1px solid rgba(255,255,255,0.8); }
 
     .cm-header { color: #597394 !important; }
     .cm-atom { color: #597394; }

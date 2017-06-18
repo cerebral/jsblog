@@ -15,8 +15,10 @@ function Image({ src, alt, width, height, align, context }) {
 
   return (
     <div
+      className="Component-Image"
       style={{
         textAlign: align || 'left',
+        padding: '10px',
       }}
     >
       <img
