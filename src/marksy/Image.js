@@ -22,7 +22,7 @@ function Image({ src, alt, width, height, align }) {
         src={url}
         alt={alt}
         style={{
-          width: width || 'auto',
+          width: width || '100%',
           height: height || 'auto',
         }}
       />

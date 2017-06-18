@@ -17,6 +17,7 @@ function upload(updateTerminal, props, name) {
     const ref = storageRef.child(path);
     const uploadTask = ref.put(file);
 
+    updateTerminal([`Uploading... 0%`]);
     uploadTask.on(
       'state_changed',
       function(snapshot) {
@@ -29,7 +30,7 @@ function upload(updateTerminal, props, name) {
         updateTerminal(['Upload failed, sorry!']);
       },
       function() {
-        updateTerminal([`Upload done! You can now use ${path}`]);
+        updateTerminal([`Upload done! You can now use "${name}"`]);
       }
     );
   };

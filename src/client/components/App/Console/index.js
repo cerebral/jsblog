@@ -47,15 +47,13 @@ class Console extends Component {
       inputValue: '',
     });
     cmd.run(value, this.props, (newValue, doReplace) => {
+      if (doReplace) {
+        this.state.textareaValue.pop();
+      }
+
       this.setState(
         {
-          textareaValue: doReplace
-            ? this.state.textareaValue.splice(
-                this.state.textareaValue.length - 1,
-                1,
-                ...newValue
-              )
-            : this.state.textareaValue.concat(newValue),
+          textareaValue: this.state.textareaValue.concat(newValue),
         },
         () => {
           this.textarea.scrollTop = '9999999999';
