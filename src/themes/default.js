@@ -82,15 +82,15 @@ export default {
     .cm-atom { color: #597394; }
     .cm-number { color: #597394; }
 
-    .cm-property, .cm-attribute { color: #597394; }
-    .cm-keyword { color: #42717B; }
-    .cm-string { color: #f0b937; }
+    .cm-property, .cm-attribute { color: #4caf50 !important; }
+    .cm-keyword { color: #42717B !important; }
+    .cm-string { color: #f0b937 !important; }
 
     .cm-variable { color: #597394 !important; }
     .cm-variable-2 { color: #4caf50 !important; }
     .cm-def { color: #d28445; }
     .cm-bracket { color: #202020; }
-    .cm-tag { color: #ac4142; }
+    .cm-tag { color: #597394 !important; }
     .cm-link, .cm-url { color: #eb1e64 !important; }
     .cm-error { background: #ac4142; color: #505050; }
     .cm-quote.cm-quote-1 { color: #f0b937 !important;}

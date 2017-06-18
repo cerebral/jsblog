@@ -4,6 +4,8 @@ import newCmd from './new';
 import publish from './publish';
 import tag from './tag';
 import theme from './theme';
+import upload from './upload';
+import components from './components';
 
 const commands = {
   edit,
@@ -12,6 +14,8 @@ const commands = {
   publish,
   tag,
   theme,
+  upload,
+  components,
 };
 
 export default {
