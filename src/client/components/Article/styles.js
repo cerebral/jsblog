@@ -15,16 +15,19 @@ export default `
   }
   .Article-content h1 {
     font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
     font-size: 3em;
     opacity: 0.5;
   }
   .Article-content h2 {
     font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
     font-size: 2em;
     opacity: 0.5;
   }
   .Article-content h3 {
     font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
     font-size: 1.5em;
     opacity: 0.5;
   }

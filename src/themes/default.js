@@ -57,7 +57,7 @@ export default {
       color: rgba(255,255,255,0.8);
     }
 
-    .hljs {
+    code.hljs {
       color: rgba(255,255,255,0.8);
       background-color: rgba(0,0,0,0.15);
     }
