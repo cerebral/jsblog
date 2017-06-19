@@ -1,6 +1,7 @@
 function renderIndex({ props, render }) {
   return {
     index: render.index({
+      title: 'JSBlog',
       appHtml: props.appContent.html,
       pageHtml: props.tagsContent.html,
       styles: [props.appContent.style, props.tagsContent.style],

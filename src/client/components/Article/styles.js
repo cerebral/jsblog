@@ -43,4 +43,17 @@ export default `
   .Article-content strong {
     font-size: 1.1em;
   }
+  .Article-content .Component-Twitter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+  }
+  .Article-content .Component-Twitter.Component-Twitter-hash {
+    display: inline;
+    font-size: 1em;
+  }
+  .Article-content .Component-Twitter.Component-Twitter-hash:not(:last-child) {
+    margin-right: 5px;
+  }
 `;

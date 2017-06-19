@@ -10,6 +10,7 @@ function upload(updateTerminal, props, name) {
 
   const fileUpload = document.createElement('input');
   fileUpload.type = 'file';
+  fileUpload.style = { position: 'fixed', left: '-2000px' };
   fileUpload.onchange = function() {
     const file = this.files[0];
     const path = `${parseDisplayName(props.user).login}/${name}`;

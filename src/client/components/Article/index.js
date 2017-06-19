@@ -2,12 +2,13 @@
 import { h, Component } from 'preact';
 import { compileArticle } from '../../../utils';
 
-function Article({ article, login }) {
+function Article(props) {
   return (
-    <article id={article.key} className="Article-content">
+    <article id={props.article.key} className="Article-content">
       {
-        compileArticle(article.content, {
-          login,
+        compileArticle(props.article.content, {
+          login: props.login,
+          article: props.article,
         }).tree
       }
     </article>

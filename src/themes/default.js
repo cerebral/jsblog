@@ -19,6 +19,14 @@ export default {
     .Component-Image {
       background-color: #28374c;
     }
+    .Component-Twitter {
+      margin: 1.5em 0;
+      cursor: pointer;
+    }
+    .Component-Twitter path, .Component-Twitter .Component-Twitter-hash {
+      fill: #2196f3;
+      color: #2196f3;
+    }
     .Article-content a {
       text-decoration: none;
       color: #2196f3;
@@ -47,7 +55,7 @@ export default {
       color: #28374c;
     }
     .App-console-textarea a {
-      color: #eb1e64;
+      color: #2196f3;
       text-decoration: underline;
     }
     .App-console-textarea::-webkit-scrollbar-thumb {

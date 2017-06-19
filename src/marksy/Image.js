@@ -3,7 +3,7 @@ import { h } from 'preact';
 
 const storageBucket = JSON.parse(process.env.FIREBASE_CONFIG).storageBucket;
 
-function Image({ src, alt, width, height, align, context }) {
+function Image({ src, alt, width, height, align, context, float }) {
   const login = context.login;
   let url = src;
 
@@ -19,6 +19,9 @@ function Image({ src, alt, width, height, align, context }) {
       style={{
         textAlign: align || 'left',
         padding: '10px',
+        float: float || 'none',
+        marginRight: float === 'left' ? '1em' : 0,
+        marginLeft: float === 'right' ? '1em' : 0,
       }}
     >
       <img

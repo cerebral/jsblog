@@ -19,6 +19,7 @@ class WriteArticle extends Component {
       this.setState({
         compiledArticle: compileArticle(draft.content, {
           login: parseDisplayName(this.props.user).login,
+          article: draft,
         }),
         isLoadingDraft: false,
       });
@@ -36,6 +37,7 @@ class WriteArticle extends Component {
   onChange(value) {
     const compiledArticle = compileArticle(value, {
       login: parseDisplayName(this.props.user).login,
+      article: draft.current,
     });
 
     draft.update({

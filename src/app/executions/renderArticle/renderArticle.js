@@ -19,6 +19,7 @@ function renderArticleFactory(forceRender) {
           />
         ),
         style: `${highlightStyles}\n${articleStyles}`,
+        title: props.article.title,
       },
     };
   }

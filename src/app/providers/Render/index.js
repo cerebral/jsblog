@@ -15,8 +15,10 @@ const render = {
     return `<!DOCTYPE html>
       <html>
         <head>
+          <title>${options.title}</title>
           <meta name="viewport" content="width=device-width, initial-scale=1">
           <meta name="theme-color" content="${theme.color}">
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
           <link rel="manifest" href="/manifest.json">
           <link rel="icon" href="/logo_48x48.png">
           <style>
