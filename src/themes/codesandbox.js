@@ -19,6 +19,10 @@ export default {
     .Component-Image {
       background-color: #24282A;
     }
+    .Component-Twitter path, .Component-Twitter .Component-Twitter-hash {
+      fill: #6CAEDD;
+      color: #6CAEDD;
+    }
     .Article-content a {
       text-decoration: none;
       color: #6CAEDD;
