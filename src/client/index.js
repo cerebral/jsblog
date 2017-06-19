@@ -78,7 +78,14 @@ function route(path, props = {}) {
 firebase.auth().getRedirectResult().then(function(result) {
   if (result.user) {
     user = result.user;
-    authentication.updateProfile(result).then(() => route(location.pathname));
+    route(location.pathname, {
+      isAuthRedirected: true,
+    });
+    authentication.updateProfile(result).then(() =>
+      route(location.pathname, {
+        isAuthRedirected: false,
+      })
+    );
   } else {
     firebase.auth().onAuthStateChanged(function(authorizedUser) {
       if (hasVerifiedUser) {

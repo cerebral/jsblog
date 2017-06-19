@@ -55,7 +55,9 @@ class App extends Component {
       <div className="App-wrapper">
         <Logo />
         <Login
-          isChangingAuthentication={this.state.isChangingAuthentication}
+          isChangingAuthentication={
+            this.state.isChangingAuthentication || this.props.isAuthRedirected
+          }
           isLoggedIn={Boolean(this.state.user)}
           toggleLogin={this.toggleLogin}
         />
