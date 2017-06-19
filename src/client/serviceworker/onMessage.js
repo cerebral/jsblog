@@ -51,6 +51,10 @@ function message(event) {
           return global.caches
             .match(message.currentUrl)
             .then(cachedResponse => {
+              if (!cachedResponse) {
+                return;
+              }
+
               const headers = new Headers();
 
               headers.append('Cookie', message.cookie);
