@@ -7,6 +7,7 @@ import hljsCss from 'highlight.js/lib/languages/css';
 import marksy from 'marksy/components';
 import ImageComponent from './marksy/Image';
 import TwitterComponent from './marksy/Twitter';
+import YoutubeComponent from './marksy/Youtube';
 
 hljs.registerLanguage('javascript', hljsJavascript);
 hljs.registerLanguage('xml', hljsXml);
@@ -17,7 +18,11 @@ const storageBucket = JSON.parse(process.env.FIREBASE_CONFIG).storageBucket;
 export const compile = marksy({
   createElement: h,
   highlight: hljs,
-  components: { Image: ImageComponent, Twitter: TwitterComponent },
+  components: {
+    Image: ImageComponent,
+    Twitter: TwitterComponent,
+    Youtube: YoutubeComponent,
+  },
   elements: {
     img({ src, alt, context }) {
       const login = context.login;
