@@ -41,7 +41,7 @@
     "firebase-server": "^0.10.1",
     "function-tree": "^1.0.0-beta.3",
     "highlight.js": "^9.12.0",
-    "marksy": "^3.1.0",
+    "marksy": "^3.1.1",
     "preact": "^8.1.0",
     "preact-render-to-string": "^3.6.3",
     "serviceworker-webpack-plugin": "^0.2.2",

@@ -8,6 +8,7 @@ import marksy from 'marksy/components';
 import ImageComponent from './marksy/Image';
 import TwitterComponent from './marksy/Twitter';
 import YoutubeComponent from './marksy/Youtube';
+import CodesandboxComponent from './marksy/Codesandbox';
 
 hljs.registerLanguage('javascript', hljsJavascript);
 hljs.registerLanguage('xml', hljsXml);
@@ -22,6 +23,7 @@ export const compile = marksy({
     Image: ImageComponent,
     Twitter: TwitterComponent,
     Youtube: YoutubeComponent,
+    Codesandbox: CodesandboxComponent,
   },
   elements: {
     img({ src, alt, context }) {
