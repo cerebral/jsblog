@@ -53,6 +53,14 @@ export default `
     display: inline;
     font-size: 1em;
   }
+  @media (max-width: 1024px) {
+    .Article-content .Component-Twitter {
+      font-size: 1em;
+    }
+    .Article-content .Component-Twitter.Component-Twitter-hash {
+      font-size: 0.75em;
+    }
+  }
   .Article-content .Component-Twitter.Component-Twitter-hash:not(:last-child) {
     margin-right: 5px;
   }
