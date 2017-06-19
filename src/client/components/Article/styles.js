@@ -49,6 +49,9 @@ export default `
     align-items: center;
     font-size: 1.5em;
   }
+  .Article-content .Component-Twitter svg {
+    margin-right: 0.25em;
+  }
   .Article-content .Component-Twitter.Component-Twitter-hash {
     display: inline;
     font-size: 1em;
@@ -62,6 +65,6 @@ export default `
     }
   }
   .Article-content .Component-Twitter.Component-Twitter-hash:not(:last-child) {
-    margin-right: 5px;
+    margin-right: 0.25em;
   }
 `;

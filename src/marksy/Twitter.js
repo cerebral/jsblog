@@ -1,11 +1,3 @@
-/*
-
-*/
-
-/*
-
-*/
-
 /** @jsx h */
 import { h } from 'preact';
 
@@ -36,11 +28,17 @@ function Twitter({ text, hashtags = '', context }) {
         <i>
           “{text}
           {' '}
-          {hashtags.split(',').map(tag =>
-            <span className="Component-Twitter Component-Twitter-hash">
-              #{tag}
-            </span>
-          )}”
+          {hashtags.split(',').map(tag => {
+            if (!tag) {
+              return null;
+            }
+
+            return (
+              <span className="Component-Twitter Component-Twitter-hash">
+                #{tag}
+              </span>
+            );
+          })}”
         </i>
       </div>
     </div>
