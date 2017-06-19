@@ -44,6 +44,8 @@ export default `
     font-size: 1.1em;
   }
   .Article-content .Component-Twitter {
+    padding: 0;
+    color: inherit;
     display: flex;
     justify-content: center;
     align-items: center;

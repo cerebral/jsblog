@@ -6,12 +6,10 @@ function Twitter({ text, hashtags = '', context }) {
     .articleName}`;
 
   return (
-    <div
+    <a
       className="Component-Twitter"
-      onClick={() =>
-        window.open(
-          `http://twitter.com/share?text=${text}&url=${url}&hashtags=${hashtags}`
-        )}
+      href={`http://twitter.com/share?text=${text}&url=${url}&hashtags=${hashtags}`}
+      target="new"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +39,7 @@ function Twitter({ text, hashtags = '', context }) {
           })}”
         </i>
       </div>
-    </div>
+    </a>
   );
 }
 
