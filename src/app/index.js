@@ -8,23 +8,28 @@ import subscribe from './executions/subscribe';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 
-export default function(admin, webpush) {
-  const run = createRun(admin, webpush);
+/*
+  Our express application
+*/
+export default function(admin) {
+  // The function-tree runner
+  const run = createRun(admin);
   const app = express();
 
+  // We need cookie parser to handle the token cookie
+  // to identify authentication state
   app.use(cookieParser());
+
+  // We use the body parser to handle the subscribe request
   app.use(bodyParser.json());
 
-  app.use(function(req, res, next) {
-    next();
-  });
-
   app.get('/', run(renderRoot));
-  app.post('/subscribe', run(subscribe));
   app.get('/drafts/:displayName/:draftKey', run(renderWriteArticle));
   app.get('/tags/:tag', run(renderTagArticles));
   app.get('/articles/:displayName', (req, res) => {});
   app.get('/articles/:displayName/:articleName', run(renderArticle));
+
+  app.post('/subscribe', run(subscribe));
 
   return app;
 }

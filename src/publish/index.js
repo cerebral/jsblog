@@ -1,4 +1,7 @@
-export default function(admin, webpush) {
+export default function(admin) {
+  /*
+    Puts the published article into its related tag articles
+  */
   function publishArticle(event, displayName) {
     const dataValue = event.data.val();
     const previousValue = event.data.previous.val();
@@ -25,6 +28,9 @@ export default function(admin, webpush) {
       .update(update);
   }
 
+  /*
+    Updates related tag stats
+  */
   function updateTag(event) {
     const dataValue = event.data.val();
     const previousValue = event.data.previous.val();
@@ -50,6 +56,11 @@ export default function(admin, webpush) {
       });
   }
 
+  /*
+    1. Updated related tag articles
+    2. Update tag stats
+    3. Send notifications
+  */
   return function publish(event) {
     return admin
       .database()

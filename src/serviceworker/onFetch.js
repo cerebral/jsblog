@@ -1,27 +1,5 @@
 import { STATIC_CACHE, PAGES_CACHE } from './caches';
 
-function doFetch(request, requestUrl, response) {
-  return fetch(request).then(responseNetwork => {
-    if (!responseNetwork || !responseNetwork.ok) {
-      if (DEBUG) {
-        console.log(
-          `[SW] URL [${requestUrl.toString()}] wrong responseNetwork: ${responseNetwork.status} ${responseNetwork.type}`
-        );
-      }
-
-      return responseNetwork;
-    }
-
-    if (DEBUG) {
-      console.log(`[SW] URL ${requestUrl.href} fetched`);
-    }
-
-    const responseCache = responseNetwork.clone();
-
-    return responseNetwork;
-  });
-}
-
 function onFetch(event) {
   const request = event.request;
 

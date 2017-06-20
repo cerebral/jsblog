@@ -1,3 +1,6 @@
+/*
+  Talk to service worker
+*/
 export default {
   clearAll() {
     navigator.serviceWorker &&

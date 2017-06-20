@@ -18,6 +18,11 @@ const commands = {
   components,
 };
 
+/*
+  This service that handles all the communication in the terminal. It does this
+  by passing in the "updateTerminal" callback, allowing whatever "sub service"
+  to render stuff in the terminal as it pleases
+*/
 export default {
   run(text, props, updateTerminal) {
     const textArgs = text.split(' ');

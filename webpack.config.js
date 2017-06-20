@@ -60,7 +60,7 @@ module.exports = function(env) {
     },
     plugins: [
       new ServiceWorkerWebpackPlugin({
-        entry: path.resolve('src', 'client', 'serviceworker', 'index.js'),
+        entry: path.resolve('src', 'serviceworker', 'index.js'),
       }),
     ].concat(
       isProduction

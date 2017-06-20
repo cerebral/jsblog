@@ -1,6 +1,9 @@
 import firebase from 'firebase';
 import { parseDisplayName, updateDisplayNameWithTheme } from '../../utils';
 
+/*
+  This service worker handles authentication and updates of the profile
+*/
 export default {
   signIn() {
     const provider = new firebase.auth.GithubAuthProvider();

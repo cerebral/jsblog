@@ -2,6 +2,10 @@ import firebase from 'firebase';
 
 let interval = null;
 
+/*
+  This service holds the state of the current draft. That draft automatically
+  saves every 10 seconds
+*/
 export default {
   current: null,
   uid: null,

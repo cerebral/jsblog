@@ -8,6 +8,10 @@ import getArticles from './getArticles';
 import replaceCachedArticles from './replaceCachedArticles';
 import hasTagArticlesChanged from './hasTagArticlesChanged';
 
+/*
+  When rendering the tag articles we always update the cache with a new version after
+  the response has been sent
+*/
 export default [
   getSession,
   hasCachedPath,

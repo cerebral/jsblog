@@ -7,6 +7,10 @@ import { parseDisplayName } from '../../../utils';
 
 const themes = { default: defaultTheme, codesandbox };
 
+/*
+  A provider that renders the "index" or a specific "component".
+  It populates the index with options passed in
+*/
 const render = {
   index(options) {
     const theme =

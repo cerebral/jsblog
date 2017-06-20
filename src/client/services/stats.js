@@ -1,5 +1,10 @@
 import firebase from 'firebase';
 
+/*
+  This service handles stats in general, currently just tracks if an article is read. It does this
+  by evaluating how much time is spent (30 seconds per 1000px height required) and if it has scrolled
+  to bottom (-100px)
+*/
 export default {
   trackArticleRead(params) {
     const loadedTime = Date.now();

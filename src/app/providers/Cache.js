@@ -1,4 +1,7 @@
 const cache = {};
+/*
+  A simple cache provider
+*/
 function Cache(context) {
   context.cache = {
     set(key, content) {

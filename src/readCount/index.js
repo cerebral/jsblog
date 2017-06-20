@@ -1,4 +1,7 @@
 export default function(admin) {
+  /*
+    Update stats of the tag article
+  */
   function updateTagArticle(data) {
     return admin
       .database()
@@ -12,6 +15,9 @@ export default function(admin) {
       });
   }
 
+  /*
+    Update stats of the tag
+  */
   function updateTag(data) {
     return admin
       .database()
@@ -25,6 +31,10 @@ export default function(admin) {
       });
   }
 
+  /*
+    Grab the Github login on user and the article in question, then
+    update read counts
+  */
   return function updateReadCount(event) {
     return admin
       .database()

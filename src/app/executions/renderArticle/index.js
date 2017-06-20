@@ -9,6 +9,10 @@ import setCache from './setCache';
 import hasArticleChanged from './hasArticleChanged';
 import getUid from './getUid';
 
+/*
+  When rendering an article we always update the cache with a new version after
+  the response has been sent
+*/
 export default [
   getSession,
   hasCachedPath,
