@@ -1,5 +1,5 @@
 module.exports = {
-  DEBUG: 'true',
+  DEBUG: true,
   'process.env.NODE_ENV': 'development',
   'process.env.FIREBASE_CONFIG': JSON.stringify({
     apiKey: 'AIzaSyAn9hulrfDCwhzu66Mb6hJIbP9Z2TSo1T8',
