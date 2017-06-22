@@ -33,7 +33,7 @@ function onFetch(event) {
 
     return (
       response ||
-      fetch(request).then(response => {
+      fetch(request.clone()).then(response => {
         const cachedResponse = response.clone();
 
         global.caches
