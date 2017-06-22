@@ -15,7 +15,11 @@ let functions = require('firebase-functions');
   same behaviour as when deployed
 */
 if (DEBUG) {
-  functions = require('firebase-functions-mock')(admin);
+  functions = require('firebase-functions-mock')(admin, {
+    config: process.env.FIREBASE_CONFIG,
+    port: 3001,
+    publicPath: 'public',
+  });
 }
 
 /*

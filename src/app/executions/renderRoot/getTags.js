@@ -33,7 +33,16 @@ function getTags({ firebase }) {
             value: tag,
             count: count + response.value[tag].readCount,
           });
-        }, []);
+        }, [])
+        .sort((tagA, tagB) => {
+          if (tagA.count > tagB.count) {
+            return -1;
+          } else if (tagA.count < tagB.count) {
+            return 1;
+          }
+
+          return 0;
+        });
 
       return { tags };
     });
