@@ -154,9 +154,11 @@ if ('serviceWorker' in navigator) {
       : event.data;
     switch (message.type) {
       case 'update':
-        route(location.pathname, {
-          hasUpdate: true,
-        });
+        if (message.url === location.href) {
+          route(location.pathname, {
+            hasUpdate: true,
+          });
+        }
         return;
     }
   });

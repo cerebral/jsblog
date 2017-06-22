@@ -102,10 +102,11 @@ function message(event) {
                 })
                 .then(responseToCache => {
                   if (responseToCache) {
+                    console.log('Cache this', responseToCache);
                     return global.caches
                       .open(PAGES_CACHE)
                       .then(cache => {
-                        return cache.put(message.currentUrl, responseToCache);
+                        return cache.put(responseToCache.url, responseToCache);
                       })
                       .then(() => {
                         self.clients.matchAll().then(function(clients) {
@@ -114,6 +115,7 @@ function message(event) {
                               return client.postMessage(
                                 JSON.stringify({
                                   type: 'update',
+                                  url: responseToCache.url,
                                 })
                               );
                             })
