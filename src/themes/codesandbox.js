@@ -86,6 +86,9 @@ export default {
     .hljs .hljs-string, .hljs .hljs-regexp {
       color: #99C794;
     }
+    .hljs .hljs-subst {
+      color: #E0E0E0;
+    }
     .hljs .hljs-built_in {
       color: rgb(255, 193, 112);
     }
