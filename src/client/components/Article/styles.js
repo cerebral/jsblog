@@ -3,6 +3,7 @@ export default `
     flex: 0 1 800px;
     text-align: justify;
     font-family: "Droid Sans Mono";
+    min-width: 0;
   }
   @media (max-width: 1024px) {
     .Article-content {
