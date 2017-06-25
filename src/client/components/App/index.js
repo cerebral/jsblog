@@ -4,6 +4,7 @@ import Logo from './Logo';
 import Login from './Login';
 import authentication from '../../services/authentication';
 import Update from './Update';
+import NewVersion from './NewVersion';
 import Console from './Console';
 import firebase from 'firebase';
 
@@ -62,6 +63,7 @@ class App extends Component {
           toggleLogin={this.toggleLogin}
         />
         {this.state.hasUpdate ? <Update /> : null}
+        {this.props.hasNewVersion ? <NewVersion /> : null}
         {this.state.user
           ? <Console
               user={this.state.user}

@@ -160,6 +160,10 @@ if ('serviceWorker' in navigator) {
           });
         }
         return;
+      case 'version':
+        route(location.pathname, {
+          hasNewVersion: true,
+        });
     }
   });
 

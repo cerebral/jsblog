@@ -60,9 +60,11 @@ const render = {
           <div id="page">${options.pageHtml}</div>
           <!-- PAGE_CONTENT_END -->
           <div id="app">${options.appHtml}</div>
+          <!-- APP_SCRIPTS_START -->
           ${config.scripts
             .map(script => `<script src="/${script}" defer></script>`)
             .join('\n')}
+          <!-- APP_SCRIPTS_END -->
             <script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

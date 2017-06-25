@@ -1,4 +1,4 @@
-import { PAGES_CACHE } from './caches';
+import { PAGES_CACHE, STATIC_CACHE } from './caches';
 
 function message(event) {
   const message = JSON.parse(event.data);
@@ -71,6 +71,38 @@ function message(event) {
                     currentUrlResponse.clone().text(),
                     cachedResponse.text(),
                   ]).then(texts => {
+                    const scriptsAMatch =
+                      texts[0].match(
+                        /\<\!\-\- APP_SCRIPTS_START \-\-\>([\s\S]*)\<\!\-\- APP_SCRIPTS_END \-\-\>/
+                      ) || [];
+                    const scriptsBMatch =
+                      texts[1].match(
+                        /\<\!\-\- APP_SCRIPTS_START \-\-\>([\s\S]*)\<\!\-\- APP_SCRIPTS_END \-\-\>/
+                      ) || [];
+
+                    if (
+                      scriptsAMatch[1] &&
+                      scriptsBMatch[1] &&
+                      scriptsAMatch[1] !== scriptsBMatch[1]
+                    ) {
+                      return Promise.all([
+                        caches.delete(STATIC_CACHE),
+                        caches.delete(PAGES_CACHE),
+                      ]).then(() => {
+                        self.clients.matchAll().then(function(clients) {
+                          Promise.all(
+                            clients.map(function(client) {
+                              return client.postMessage(
+                                JSON.stringify({
+                                  type: 'version',
+                                })
+                              );
+                            })
+                          );
+                        });
+                      });
+                    }
+
                     const themeAMatch =
                       texts[0].match(
                         /\<\!\-\- THEME_CONTENT_START \-\-\>([\s\S]*)\<\!\-\- THEME_CONTENT_END \-\-\>/
