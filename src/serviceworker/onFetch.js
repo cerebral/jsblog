@@ -21,19 +21,23 @@ function onFetch(event) {
   }
 
   const resource = global.caches.match(request).then(response => {
-    if (response && requestUrl.href.match(/\.js$/)) {
+    if (response) {
       if (DEBUG) {
-        console.log(`[SW] fetch SCRIPT ${requestUrl.href} from cache`);
+        console.log(`[SW] Cache hit on ${requestUrl.href}`);
       }
 
       return response;
-    } else if (response && DEBUG) {
-      console.log(`[SW] fetch PAGE in background ${requestUrl.href}`);
     }
 
     return (
       response ||
       fetch(request.clone()).then(response => {
+        if (DEBUG) {
+          console.log(
+            `[SW] Fetched new version of ${requestUrl.href}, putting in cache`
+          );
+        }
+
         const cachedResponse = response.clone();
 
         global.caches

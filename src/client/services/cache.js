@@ -16,7 +16,6 @@ export default {
         JSON.stringify({
           type: 'update',
           urls,
-          currentUrl: location.href,
           cookie: document.cookie,
         })
       );

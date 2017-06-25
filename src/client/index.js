@@ -37,10 +37,9 @@ function renderPage(Comp, props = {}) {
 /*
   Route to correct page
 */
-function route(path, props = {}) {
-  // If we have and prefetches, tell service worker to run them now.
-  window.PREFETCHES && cache.updateUrls(window.PREFETCHES);
-
+function route(path, props = {}, updateCache = true) {
+  updateCache &&
+    cache.updateUrls([location.href].concat(window.PREFETCHES || []));
   /*
     The URL mapper allows us to easily map urls to execution. We lazy load
     the app/pages and then render them
@@ -152,18 +151,24 @@ if ('serviceWorker' in navigator) {
     const message = typeof event.data === 'string'
       ? JSON.parse(event.data)
       : event.data;
+
     switch (message.type) {
       case 'update':
-        if (message.url === location.href) {
-          route(location.pathname, {
+        return route(
+          location.pathname,
+          {
             hasUpdate: true,
-          });
-        }
-        return;
+          },
+          false
+        );
       case 'version':
-        route(location.pathname, {
-          hasNewVersion: true,
-        });
+        return route(
+          location.pathname,
+          {
+            hasNewVersion: true,
+          },
+          false
+        );
     }
   });
 
