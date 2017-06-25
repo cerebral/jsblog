@@ -10,7 +10,9 @@ export default `
   @media (max-width: 1024px) {
     .Tags-wrapper {
       flex: 1;
-      flex-wrap: wrap;
+      padding-top: 100px;
+      display: block;
+      text-align: center;
     }
   }
   .Tags-tag {
