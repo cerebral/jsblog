@@ -40,6 +40,33 @@ export const compile = marksy({
     li({ children }) {
       return <li><span>{children}</span></li>;
     },
+    h2({ id, children }) {
+      return (
+        <h2 id={id}>
+          <a className="Article-HeaderLink" href={`#${id}`}>
+            {children}
+          </a>
+        </h2>
+      );
+    },
+    h3({ id, children }) {
+      return (
+        <h3 id={id}>
+          <a className="Article-HeaderLink" href={`#${id}`}>
+            {children}
+          </a>
+        </h3>
+      );
+    },
+    h4({ id, children }) {
+      return (
+        <h4 id={id}>
+          <a className="Article-HeaderLink" href={`#${id}`}>
+            {children}
+          </a>
+        </h4>
+      );
+    },
   },
 });
 

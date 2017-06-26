@@ -5,6 +5,13 @@ export default `
     font-family: "Droid Sans Mono";
     min-width: 0;
   }
+  .Article-HeaderLink {
+    color: inherit !important;
+  }
+  .Article-HeaderLink:hover::after {
+    content: ' ⏎';
+    font-size: 0.75em;
+  }
   @media (max-width: 1024px) {
     .Article-content {
       padding: 50px 20px 20px 20px;
