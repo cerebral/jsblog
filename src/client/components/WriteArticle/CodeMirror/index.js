@@ -12,6 +12,11 @@ class CodeMirror extends Component {
       viewportMargin: 20,
       minHeight: '200px',
       lineWrapping: true,
+      extraKeys: {
+        Tab: function(cm) {
+          cm.replaceSelection('  ', 'end');
+        },
+      },
     });
     cm.on('change', () => {
       this.props.onChange(cm.getDoc().getValue());

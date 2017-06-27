@@ -65,36 +65,66 @@ export default {
       color: rgba(255,255,255,0.8);
     }
 
-    code.hljs {
+    code[class*="language-"] {
       color: rgba(255,255,255,0.8);
       background-color: rgba(0,0,0,0.15);
     }
-    .hljs .hljs-function {
+
+    .token.operator,
+    .token.entity,
+    .token.url,
+    .language-css .token.string,
+    .style .token.string,
+    .token.punctuation, .token.script {
       color: rgba(255,255,255,0.8);
     }
-    .hljs .hljs-keyword, .hljs .hljs-variable {
+
+    .token.function {
+      color: rgba(255,255,255,0.8);
+    }
+
+    .token.atrule,
+    .token.keyword {
       color: #597394;
     }
-    .hljs .hljs-comment, .hljs .hljs-meta {
+
+    .token.comment,
+    .token.prolog,
+    .token.doctype,
+    .token.cdata {
       color: rgba(255,255,255,0.5);
     }
-    .hljs .hljs-tag, .hljs .hljs-type {
+
+    .token.property,
+    .token.tag,
+    .token.constant,
+    .token.symbol,
+    .token.deleted {
       color: #597394;
     }
-    .hljs .hljs-literal {
+
+    .token.boolean,
+    .token.number {
       color: #2196f3;
     }
-    .hljs .hljs-string, .hljs .hljs-regexp {
+
+    .token.regex,
+    .token.important,
+    .token.variable {
+      color: #D23D3D;
+    }
+
+    .token.selector,
+    .token.string,
+    .token.attr-value,
+    .token.char,
+    .token.builtin,
+    .token.inserted {
       color: #f0b937;
     }
-    .hljs .hljs-subst {
-      color: rgba(255,255,255,0.8);
-    }
-    .hljs .hljs-built_in {
+
+    .token.attr-name {
       color: #4caf50;
-    }
-    .hljs .hljs-symbol {
-      color: #D23D3D;
     }
 
     .CodeMirror { background: transparent; color: rgba(255,255,255,0.8); }

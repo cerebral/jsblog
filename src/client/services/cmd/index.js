@@ -6,6 +6,7 @@ import tag from './tag';
 import theme from './theme';
 import upload from './upload';
 import components from './components';
+import languages from './languages';
 
 const commands = {
   edit,
@@ -16,6 +17,7 @@ const commands = {
   theme,
   upload,
   components,
+  languages,
 };
 
 /*

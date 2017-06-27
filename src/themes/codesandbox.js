@@ -61,31 +61,68 @@ export default {
       color: #E0E0E0;
     }
 
-    .hljs {
+    code[class*="language-"] {
       color: #E0E0E0;
       background-color: #24282A;
     }
-    .hljs .hljs-function {
-      color: #E0E0E0;
+
+    .token.operator,
+    .token.entity,
+    .token.url,
+    .language-css .token.string,
+    .style .token.string,
+    .token.punctuation, .token.script {
+      color: rgba(255,255,255,0.8);
     }
-    .hljs .hljs-keyword {
-      color: #6CAEDD;
-    }
-    .hljs .hljs-variable {
+
+    .token.function {
       color: rgb(255, 193, 112);
     }
-    .hljs .hljs-comment, .hljs .hljs-meta {
+
+    .token.atrule,
+    .token.keyword {
+      color: #6CAEDD;
+    }
+
+    .token.comment,
+    .token.prolog,
+    .token.doctype,
+    .token.cdata {
       color: #666;
     }
-    .hljs .hljs-tag, .hljs .hljs-type {
+
+    .token.property,
+    .token.tag,
+    .token.constant,
+    .token.symbol,
+    .token.deleted {
       color: #EC5f67;
     }
-    .hljs .hljs-literal {
+
+    .token.boolean,
+    .token.number {
       color: #aa759f;
     }
-    .hljs .hljs-string, .hljs .hljs-regexp {
+
+    .token.regex,
+    .token.important,
+    .token.variable {
+      color: rgb(255, 193, 112);
+    }
+
+    .token.selector,
+    .token.string,
+    .token.attr-value,
+    .token.char,
+    .token.builtin,
+    .token.inserted {
       color: #99C794;
     }
+
+    .token.attr-name {
+      color: #aa759f;
+    }
+
     .hljs .hljs-subst {
       color: #E0E0E0;
     }

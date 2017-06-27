@@ -7,6 +7,7 @@ function help(updateTerminal) {
     '- jsblog edit  - *edit article*',
     '- jsblog upload *filename* - *Upload a file to use in article*',
     '- jsblog components - *list possible components*',
+    '- jsblog languages - *list supported code languages*',
     '- jsblog theme - *list possible themes*',
     '- jsblog theme *sometheme* - *activate a new theme*',
     '- jsblog help - *this welcome*',

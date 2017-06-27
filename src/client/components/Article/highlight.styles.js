@@ -1,61 +1,40 @@
 export default `
-  .hljs {
+  code[class*="language-"],
+  pre[class*="language-"] {
     display: block;
     overflow-x: auto;
-    padding: 1em;
     font-family: "Droid Sans Mono";
     background: transparent;
+  	text-align: left;
+  	white-space: pre;
+  	word-spacing: normal;
+  	word-break: normal;
+  	word-wrap: normal;
+  	line-height: 1.5;
+
+  	-moz-tab-size: 4;
+  	-o-tab-size: 4;
+  	tab-size: 4;
+
+  	-webkit-hyphens: none;
+  	-moz-hyphens: none;
+  	-ms-hyphens: none;
+  	hyphens: none;
   }
 
-  .hljs-comment,
-  .hljs-quote {
-    font-style: italic;
+  code[class*="language-"] {
+    padding: 20px !important;
   }
 
-  .hljs-keyword,
-  .hljs-selector-tag,
-  .hljs-subst {
-    font-weight: bold;
+  .token.important,
+  .token.bold {
+  	font-weight: bold;
+  }
+  .token.italic {
+  	font-style: italic;
   }
 
-  .hljs-title,
-  .hljs-section,
-  .hljs-selector-id {
-    font-weight: bold;
-  }
-
-  .hljs-subst {
-    font-weight: normal;
-  }
-
-  .hljs-type,
-  .hljs-class .hljs-title {
-    font-weight: bold;
-  }
-
-  .hljs-tag,
-  .hljs-name,
-  .hljs-attribute {
-    font-weight: normal;
-  }
-
-  .hljs-meta {
-    font-weight: bold;
-  }
-
-  .hljs-deletion {
-    background: #fdd;
-  }
-
-  .hljs-addition {
-    background: #dfd;
-  }
-
-  .hljs-emphasis {
-    font-style: italic;
-  }
-
-  .hljs-strong {
-    font-weight: bold;
+  .token.entity {
+  	cursor: help;
   }
 `;
