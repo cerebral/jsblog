@@ -7,6 +7,7 @@ import theme from './theme';
 import upload from './upload';
 import components from './components';
 import languages from './languages';
+import drafts from './drafts';
 
 const commands = {
   edit,
@@ -18,6 +19,7 @@ const commands = {
   upload,
   components,
   languages,
+  drafts,
 };
 
 /*

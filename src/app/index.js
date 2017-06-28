@@ -4,6 +4,7 @@ import createRun from './createRun';
 import renderWriteArticle from './executions/renderWriteArticle';
 import renderArticle from './executions/renderArticle';
 import renderTagArticles from './executions/renderTagArticles';
+import renderDrafts from './executions/renderDrafts';
 import subscribe from './executions/subscribe';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
@@ -24,6 +25,7 @@ export default function(admin) {
   app.use(bodyParser.json());
 
   app.get('/', run(renderRoot));
+  app.get('/drafts/:displayName', run(renderDrafts));
   app.get('/drafts/:displayName/:draftKey', run(renderWriteArticle));
   app.get('/tags/:tag', run(renderTagArticles));
   app.get('/articles/:displayName', (req, res) => {});

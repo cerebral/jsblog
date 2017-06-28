@@ -9,11 +9,19 @@ function renderTagArticlesFactory(forceRender) {
       return { tagArticlesContent: props.cache };
     }
 
-    const articles = Object.keys(
-      props.articles || []
-    ).reduce((allArticles, articleKey) => {
-      return allArticles.concat(props.articles[articleKey]);
-    }, []);
+    const articles = Object.keys(props.articles || [])
+      .reduce((allArticles, articleKey) => {
+        return allArticles.concat(props.articles[articleKey]);
+      }, [])
+      .sort((articleA, articleB) => {
+        if (articleA.publishDatetime > articleB.publishDatetime) {
+          return -1;
+        } else if (articleA.publishDatetime < articleB.publishDatetime) {
+          return 1;
+        }
+
+        return 0;
+      });
 
     return {
       tagArticlesContent: {
