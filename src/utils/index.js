@@ -7,6 +7,7 @@ import ImageComponent from './marksy/Image';
 import TwitterComponent from './marksy/Twitter';
 import YoutubeComponent from './marksy/Youtube';
 import CodesandboxComponent from './marksy/Codesandbox';
+import DisqusComponent from './marksy/Disqus';
 
 prismJsx(Prism);
 
@@ -22,6 +23,7 @@ export const compile = marksy({
     Twitter: TwitterComponent,
     Youtube: YoutubeComponent,
     Codesandbox: CodesandboxComponent,
+    Disqus: DisqusComponent,
   },
   elements: {
     img({ src, alt, context }) {

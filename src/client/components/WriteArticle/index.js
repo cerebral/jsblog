@@ -20,6 +20,7 @@ class WriteArticle extends Component {
         compiledArticle: compileArticle(draft.content, {
           login: parseDisplayName(this.props.user).login,
           article: draft,
+          isDraft: true,
         }),
         isLoadingDraft: false,
       });
@@ -38,6 +39,7 @@ class WriteArticle extends Component {
     const compiledArticle = compileArticle(value, {
       login: parseDisplayName(this.props.user).login,
       article: draft.current,
+      isDraft: true,
     });
 
     draft.update({

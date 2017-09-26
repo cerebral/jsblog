@@ -75,6 +75,23 @@ const render = {
               ga('send', 'pageview');
 
             </script>
+            <script>
+              var disqusContainer = document.querySelector('#disqus_thread')
+
+              if (disqusContainer) {
+                var disqus_config = function () {
+                  this.page.url = location.href;
+                  this.page.identifier = location.pathname;
+                };
+
+                (function() {
+                  var d = document, s = d.createElement('script');
+                  s.src = 'https://' + disqusContainer.getAttribute('data-name') + '.disqus.com/embed.js';
+                  s.setAttribute('data-timestamp', +new Date());
+                  (d.head || d.body).appendChild(s);
+                })();
+              }
+            </script>
         </body>
       </html>`;
   },

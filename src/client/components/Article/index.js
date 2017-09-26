@@ -9,6 +9,7 @@ function Article(props) {
         compileArticle(props.article.content, {
           login: props.login,
           article: props.article,
+          isDraft: false,
         }).tree
       }
     </article>

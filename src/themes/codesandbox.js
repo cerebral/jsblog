@@ -23,6 +23,12 @@ export default {
       fill: #6CAEDD;
       color: #6CAEDD;
     }
+    .Component-Disqus-placeholder {
+      padding: 10px;
+      background-color: #6CAEDD;
+      text-align: center;
+      font-weight: bold;
+    }
     .Article-content a {
       text-decoration: none;
       color: #6CAEDD;
